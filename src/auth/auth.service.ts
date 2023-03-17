@@ -191,7 +191,7 @@ export class AuthService {
           },
         });
 
-        if (!user) {
+        if (!user || !user.hashedRefreshToken) {
           throw new Error(accessDeniedError);
         }
 
