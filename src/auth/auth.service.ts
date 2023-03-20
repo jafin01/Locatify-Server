@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon2 from 'argon2';
 import {
   accessDeniedError,
+  hashError,
   logoutSuccess,
   userAlreadyExistsError,
 } from 'src/constants/errorMessages';
@@ -19,7 +20,12 @@ export class AuthService {
   ) {}
 
   hashData = async (data) => {
-    return await argon2.hash(data);
+    try {
+      const hash = await argon2.hash(data);
+      return hash;
+    } catch (error) {
+      throw new Error(hashError);
+    }
   };
 
   getTokens = async (
@@ -63,15 +69,19 @@ export class AuthService {
   };
 
   updateRefreshTokenHash = async (userId: string, refreshToken: string) => {
-    const hashedRefreshToken = await this.hashData(refreshToken);
-    await this.PrismaService.user.update({
-      where: {
-        id: userId,
-      },
-      data: {
-        hashedRefreshToken,
-      },
-    });
+    try {
+      const hashedRefreshToken = await this.hashData(refreshToken);
+      await this.PrismaService.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          hashedRefreshToken,
+        },
+      });
+    } catch (error) {
+      throw new Error(error.message);
+    }
   };
 
   userSignup = (authDto) => {
@@ -108,7 +118,7 @@ export class AuthService {
           },
         });
 
-        const location = await this.PrismaService.location.create({
+        await this.PrismaService.location.create({
           data: {
             title: locationTitle,
             latitude,
@@ -116,8 +126,6 @@ export class AuthService {
             user: { connect: { id: newUser.id } },
           },
         });
-
-        console.log(location);
 
         const tokens: any = await this.getTokens(newUser.id, newUser.email);
         await this.updateRefreshTokenHash(newUser.id, tokens.refresh_token);

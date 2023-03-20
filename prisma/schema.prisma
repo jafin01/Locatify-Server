@@ -11,16 +11,18 @@ datasource db {
 }
 
 model User {
-  id                 String     @id @unique @default(uuid())
+  id                 String          @id @unique @default(uuid())
   mobileNo           String
-  firstName           String
+  firstName          String
   lastName           String
-  email              String     @unique
+  email              String          @unique
   hashedPassword     String
   hashedRefreshToken String?
   location           Location[]
-  createdAt          DateTime   @default(now())
-  updatedAt          DateTime   @updatedAt
+  circle             Circle[]
+  circleMembers      CircleMembers[]
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
 
   @@map("users")
 }
@@ -32,4 +34,22 @@ model Location {
   longitude Float
   userId    String
   user      User?  @relation(fields: [userId], references: [id])
+}
+
+model Circle {
+  id            String          @unique @default(uuid())
+  circleCode    String
+  title         String
+  description   String?
+  createdUserId String
+  createdUser   User            @relation(fields: [createdUserId], references: [id])
+  circleMembers CircleMembers[]
+}
+
+model CircleMembers {
+  id       String @unique @default(uuid())
+  userId   String
+  members  User   @relation(fields: [userId], references: [id])
+  circleId String
+  circle   Circle @relation(fields: [circleId], references: [id])
 }

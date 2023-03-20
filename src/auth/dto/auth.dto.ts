@@ -2,6 +2,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsNumber,
+  IsOptional,
   IsString,
   MinLength,
 } from 'class-validator';
@@ -35,11 +36,14 @@ export class AuthDto {
   hashedRefreshToken: string;
 
   @IsNumber()
+  @IsOptional()
   latitude: number;
 
   @IsNumber()
+  @IsOptional()
   longitude: number;
 
   @IsString()
+  @IsOptional()
   locationTitle: string;
 }
