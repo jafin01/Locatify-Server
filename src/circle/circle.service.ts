@@ -84,11 +84,7 @@ export class CircleService {
   getAllCircleMembers = (circleId) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const circle = await this.prismaService.circle.findUnique({
-          where: {
-            id: circleId,
-          },
-        });
+        const circle = this.getCircleDetails(circleId);
 
         if (!circle) throw new Error(noCircleError);
 
@@ -109,6 +105,22 @@ export class CircleService {
         resolve(circleMembers);
       } catch (error) {
         reject(error);
+      }
+    });
+  };
+
+  getCircleDetails = (circleId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const circle = await this.prismaService.circle.findUnique({
+          where: {
+            id: circleId,
+          },
+        });
+
+        resolve(circle);
+      } catch (error) {
+        reject(error.message);
       }
     });
   };

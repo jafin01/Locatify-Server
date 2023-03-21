@@ -46,4 +46,14 @@ export class CircleController {
       return handleError(error);
     }
   }
+
+  @Get('get-circle-data/:id')
+  async getCircleData(@Param() params) {
+    try {
+      const circleData = await this.circleService.getCircleDetails(params.id);
+      return handleSuccess(circleData);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
 }
