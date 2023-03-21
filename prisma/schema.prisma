@@ -1,3 +1,65 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "postgresql"
+//   url      = env("DATABASE_URL")
+// }
+
+// model User {
+//   id                 String          @id @unique @default(uuid())
+//   mobileNo           String
+//   firstName          String
+//   lastName           String
+//   email              String          @unique
+//   hashedPassword     String
+//   hashedRefreshToken String?
+//   location           Location[]
+//   circle             Circle[]
+//   circleMembers      CircleMembers[]
+//   createdAt          DateTime        @default(now())
+//   updatedAt          DateTime        @updatedAt
+
+//   @@map("users")
+// }
+
+// model Location {
+//   id        String @unique @default(uuid())
+//   title     String
+//   latitude  Float
+//   longitude Float
+//   userId    String
+//   user      User?  @relation(fields: [userId], references: [id])
+
+//   @@map("locations")
+// }
+
+// model Circle {
+//   id            String          @unique @default(uuid())
+//   circleCode    String
+//   title         String
+//   description   String?
+//   createdUserId String
+//   createdUser   User            @relation(fields: [createdUserId], references: [id])
+//   circleMembers CircleMembers[]
+
+//   @@map("circles")
+// }
+
+// model CircleMembers {
+//   id       String @unique @default(uuid())
+//   userId   String
+//   members  User   @relation(fields: [userId], references: [id])
+//   circleId String
+//   circle   Circle @relation(fields: [circleId], references: [id])
+
+//   @@map("circleMembers")
+// }
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -34,6 +96,8 @@ model Location {
   longitude Float
   userId    String
   user      User?  @relation(fields: [userId], references: [id])
+
+  @@map("locations")
 }
 
 model Circle {
@@ -44,6 +108,8 @@ model Circle {
   createdUserId String
   createdUser   User            @relation(fields: [createdUserId], references: [id])
   circleMembers CircleMembers[]
+
+  @@map("circles")
 }
 
 model CircleMembers {
@@ -52,4 +118,7 @@ model CircleMembers {
   members  User   @relation(fields: [userId], references: [id])
   circleId String
   circle   Circle @relation(fields: [circleId], references: [id])
+
+  @@map("circleMembers")
 }
+

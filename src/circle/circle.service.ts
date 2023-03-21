@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
 import { noCircleError } from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
-
 @Injectable()
 export class CircleService {
   constructor(private prismaService: PrismaService) {}
+  id: number;
+  name: string;
+  circleMembers: User[];
   createCircle = (circleDto, userId) => {
     const { title, description } = circleDto;
 
@@ -18,13 +21,13 @@ export class CircleService {
             title,
             circleCode,
             description,
-            user: { connect: { id: userId } },
+            createdUser: { connect: { id: userId } },
           },
         });
 
         await this.prismaService.circleMembers.create({
           data: {
-            users: { connect: { id: userId } },
+            members: { connect: { id: userId } },
             circle: { connect: { id: circle.id } },
           },
         });
@@ -51,18 +54,15 @@ export class CircleService {
 
         const members = await this.prismaService.circleMembers.create({
           data: {
-            users: {
-              connect: {
-                id: userId,
-              },
+            members: {
+              connect: { id: userId },
             },
             circle: {
-              connect: {
-                id: circle.id,
-              },
+              connect: { id: circle.id },
             },
           },
         });
+
         resolve(members);
       } catch (error) {
         reject(error);

@@ -118,14 +118,16 @@ export class AuthService {
           },
         });
 
-        await this.PrismaService.location.create({
-          data: {
-            title: locationTitle,
-            latitude,
-            longitude,
-            user: { connect: { id: newUser.id } },
-          },
-        });
+        if (locationTitle && latitude && longitude) {
+          await this.PrismaService.location.create({
+            data: {
+              title: locationTitle,
+              latitude,
+              longitude,
+              user: { connect: { id: newUser.id } },
+            },
+          });
+        }
 
         const tokens: any = await this.getTokens(newUser.id, newUser.email);
         await this.updateRefreshTokenHash(newUser.id, tokens.refresh_token);

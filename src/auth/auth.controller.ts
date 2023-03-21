@@ -37,7 +37,7 @@ export class AuthController {
   async userSignin(@Body() loginDto: LoginDto) {
     try {
       const data = await this.AuthService.userSignin(loginDto);
-      return data;
+      return handleSuccess(data);
     } catch (error) {
       return handleError(error);
     }
