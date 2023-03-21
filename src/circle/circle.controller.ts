@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { CircleService } from './circle.service';
@@ -30,6 +30,18 @@ export class CircleController {
     try {
       const circle = await this.circleService.joinCircle(circleCodeDto, userId);
       return handleSuccess(circle);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('get-circle-members/:id')
+  async getAllCircleMembers(@Param() params) {
+    try {
+      const circleMembers = await this.circleService.getAllCircleMembers(
+        params.id,
+      );
+      return handleSuccess(circleMembers);
     } catch (error) {
       return handleError(error);
     }

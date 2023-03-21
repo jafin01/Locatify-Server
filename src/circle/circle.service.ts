@@ -3,6 +3,7 @@ import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
 import { noCircleError } from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { userAlreadyExistsError } from 'src/constants/errorMessages';
 @Injectable()
 export class CircleService {
   constructor(private prismaService: PrismaService) {}
@@ -52,6 +53,16 @@ export class CircleService {
 
         if (!circle) throw new Error(noCircleError);
 
+        const isExistingMember =
+          await this.prismaService.circleMembers.findFirst({
+            where: {
+              circleId: circle.id,
+              userId,
+            },
+          });
+
+        if (isExistingMember) throw new Error(userAlreadyExistsError);
+
         const members = await this.prismaService.circleMembers.create({
           data: {
             members: {
@@ -64,6 +75,38 @@ export class CircleService {
         });
 
         resolve(members);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  getAllCircleMembers = (circleId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const circle = await this.prismaService.circle.findUnique({
+          where: {
+            id: circleId,
+          },
+        });
+
+        if (!circle) throw new Error(noCircleError);
+
+        const membersId: any = await this.prismaService.circleMembers.findMany({
+          where: {
+            circleId,
+          },
+        });
+
+        const circleMembers = await this.prismaService.user.findMany({
+          where: {
+            id: {
+              in: membersId.userId,
+            },
+          },
+        });
+
+        resolve(circleMembers);
       } catch (error) {
         reject(error);
       }
