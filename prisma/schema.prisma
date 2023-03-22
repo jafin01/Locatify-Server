@@ -1,6 +1,3 @@
-// // This is your Prisma schema file,
-// // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // generator client {
 //   provider = "prisma-client-js"
 // }
@@ -18,11 +15,11 @@
 //   email              String          @unique
 //   hashedPassword     String
 //   hashedRefreshToken String?
-//   location           Location[]
-//   circle             Circle[]
-//   circleMembers      CircleMembers[]
 //   createdAt          DateTime        @default(now())
 //   updatedAt          DateTime        @updatedAt
+//   circle             Circle[]
+//   circleMembers      CircleMembers[]
+//   location           Location[]
 
 //   @@map("users")
 // }
@@ -33,9 +30,7 @@
 //   latitude  Float
 //   longitude Float
 //   userId    String
-//   user      User?  @relation(fields: [userId], references: [id])
-
-//   @@map("locations")
+//   user      User   @relation(fields: [userId], references: [id])
 // }
 
 // model Circle {
@@ -46,18 +41,15 @@
 //   createdUserId String
 //   createdUser   User            @relation(fields: [createdUserId], references: [id])
 //   circleMembers CircleMembers[]
-
-//   @@map("circles")
 // }
 
 // model CircleMembers {
 //   id       String @unique @default(uuid())
 //   userId   String
-//   members  User   @relation(fields: [userId], references: [id])
 //   circleId String
+//   role     String
 //   circle   Circle @relation(fields: [circleId], references: [id])
-
-//   @@map("circleMembers")
+//   member   User   @relation(fields: [userId], references: [id])
 // }
 
 // This is your Prisma schema file,
@@ -96,8 +88,6 @@ model Location {
   longitude Float
   userId    String
   user      User?  @relation(fields: [userId], references: [id])
-
-  @@map("locations")
 }
 
 model Circle {
@@ -108,17 +98,12 @@ model Circle {
   createdUserId String
   createdUser   User            @relation(fields: [createdUserId], references: [id])
   circleMembers CircleMembers[]
-
-  @@map("circles")
 }
 
 model CircleMembers {
   id       String @unique @default(uuid())
   userId   String
-  members  User   @relation(fields: [userId], references: [id])
+  member  User   @relation(fields: [userId], references: [id])
   circleId String
   circle   Circle @relation(fields: [circleId], references: [id])
-
-  @@map("circleMembers")
 }
-

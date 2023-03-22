@@ -26,12 +26,7 @@ export class CircleService {
           },
         });
 
-        await this.prismaService.circleMembers.create({
-          data: {
-            members: { connect: { id: userId } },
-            circle: { connect: { id: circle.id } },
-          },
-        });
+        // await this.createCircleMembers(userId, circle.id);
 
         resolve(circle);
         return circle;
@@ -41,7 +36,24 @@ export class CircleService {
     });
   };
 
-  joinCircle = async (circleCodeDto, userId) => {
+  createCircleMembers = (userId, circleId) => {
+    return new Promise(async (resolve, reject): Promise<void> => {
+      try {
+        const createdMember = await this.prismaService.circleMembers.create({
+          data: {
+            member: { connect: { id: userId } },
+            circle: { connect: { id: circleId } },
+          },
+        });
+
+        resolve(createdMember);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  joinCircle = (circleCodeDto, userId) => {
     const { circleCode } = circleCodeDto;
     return new Promise(async (resolve, reject) => {
       try {
@@ -65,7 +77,7 @@ export class CircleService {
 
         const members = await this.prismaService.circleMembers.create({
           data: {
-            members: {
+            member: {
               connect: { id: userId },
             },
             circle: {
@@ -121,6 +133,25 @@ export class CircleService {
         resolve(circle);
       } catch (error) {
         reject(error.message);
+      }
+    });
+  };
+
+  addCircleRole = (role, userId, circleId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        // const updatedMember = await this.prismaService.circleMembers.update({
+        //   data: {
+        //     role,
+        //   },
+        //   where: {
+        //     circleId,
+        //     userId,
+        //   },
+        // });
+        resolve(circleId);
+      } catch (error) {
+        reject(error);
       }
     });
   };
