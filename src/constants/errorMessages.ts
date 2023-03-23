@@ -6,3 +6,4 @@ export const noCircleError = 'No Circles found';
 export const circleMemberError = 'Could not create circle member';
 
 export const logoutSuccess = 'Logout Success';
+export const loginSuccess = 'Login Success';

@@ -14,6 +14,15 @@ CREATE TABLE "users" (
 );
 
 -- CreateTable
+CREATE TABLE "Location" (
+    "id" TEXT NOT NULL,
+    "title" TEXT NOT NULL,
+    "latitude" DOUBLE PRECISION NOT NULL,
+    "longitude" DOUBLE PRECISION NOT NULL,
+    "userId" TEXT NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "Circle" (
     "id" TEXT NOT NULL,
     "circleCode" TEXT NOT NULL,
@@ -29,15 +38,6 @@ CREATE TABLE "CircleMembers" (
     "circleId" TEXT NOT NULL
 );
 
--- CreateTable
-CREATE TABLE "Location" (
-    "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "latitude" DOUBLE PRECISION NOT NULL,
-    "longitude" DOUBLE PRECISION NOT NULL,
-    "userId" TEXT NOT NULL
-);
-
 -- CreateIndex
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
 
@@ -45,22 +45,22 @@ CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Location_id_key" ON "Location"("id");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Circle_id_key" ON "Circle"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "CircleMembers_id_key" ON "CircleMembers"("id");
 
--- CreateIndex
-CREATE UNIQUE INDEX "Location_id_key" ON "Location"("id");
+-- AddForeignKey
+ALTER TABLE "Location" ADD CONSTRAINT "Location_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Circle" ADD CONSTRAINT "Circle_createdUserId_fkey" FOREIGN KEY ("createdUserId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "CircleMembers" ADD CONSTRAINT "CircleMembers_circleId_fkey" FOREIGN KEY ("circleId") REFERENCES "Circle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "CircleMembers" ADD CONSTRAINT "CircleMembers_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Location" ADD CONSTRAINT "Location_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "CircleMembers" ADD CONSTRAINT "CircleMembers_circleId_fkey" FOREIGN KEY ("circleId") REFERENCES "Circle"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -20,7 +20,6 @@ export class CircleController {
         circleDto,
         userId,
       );
-      await this.circleService.createCircleMembers(userId, circle.id);
       return handleSuccess(circle);
     } catch (error) {
       return handleError(error);

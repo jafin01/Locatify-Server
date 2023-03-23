@@ -26,7 +26,7 @@ export class CircleService {
           },
         });
 
-        // await this.createCircleMembers(userId, circle.id);
+        await this.createCircleMembers(userId, circle.id);
 
         resolve(circle);
         return circle;
@@ -96,7 +96,7 @@ export class CircleService {
   getAllCircleMembers = (circleId) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const circle = this.getCircleDetails(circleId);
+        const circle = await this.getCircleDetails(circleId);
 
         if (!circle) throw new Error(noCircleError);
 
@@ -130,9 +130,11 @@ export class CircleService {
           },
         });
 
+        if (!circle) throw new Error(noCircleError);
+
         resolve(circle);
       } catch (error) {
-        reject(error.message);
+        reject(error);
       }
     });
   };

@@ -11,6 +11,7 @@ import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decor
 import { GetCurrentUser } from 'src/common/decorator/get-current-user.decorator';
 import { Public } from 'src/common/decorator/public.decorator';
 import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
+import { loginSuccess } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -36,8 +37,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userSignin(@Body() loginDto: LoginDto) {
     try {
-      const data = await this.AuthService.userSignin(loginDto);
-      return handleSuccess(data);
+      const data: any = await this.AuthService.userSignin(loginDto);
+      return handleSuccess(data.user, data.tokens, loginSuccess);
     } catch (error) {
       return handleError(error);
     }

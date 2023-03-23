@@ -8,7 +8,7 @@ import {
 } from 'class-validator';
 
 export class AuthDto {
-  @MinLength(10)
+  @MinLength(4)
   @IsNotEmpty()
   @IsString()
   mobileNo: string;
