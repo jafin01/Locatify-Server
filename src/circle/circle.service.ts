@@ -26,7 +26,7 @@ export class CircleService {
           },
         });
         const role = 'admin';
-        await this.createCircleMembers(userId, circle.id, role);
+        await this.createCircleMember(userId, circle.id, role);
 
         resolve(circle);
         return circle;
@@ -36,7 +36,7 @@ export class CircleService {
     });
   };
 
-  createCircleMembers = (userId, circleId, role) => {
+  createCircleMember = (userId, circleId, role) => {
     return new Promise(async (resolve, reject): Promise<void> => {
       try {
         const createdMember = await this.prismaService.circleMembers.create({
@@ -75,20 +75,7 @@ export class CircleService {
 
         if (isExistingMember) throw new Error(userAlreadyExistsError);
 
-        const members = await this.createCircleMembers(userId, circle.id, role);
-        console.log(members);
-
-        // const members = await this.prismaService.circleMembers.create({
-        //   data: {
-        //     member: {
-        //       connect: { id: userId },
-        //     },
-        //     circle: {
-        //       connect: { id: circle.id },
-        //     },
-        //     role,
-        //   },
-        // });
+        await this.createCircleMember(userId, circle.id, role);
 
         resolve(circle);
       } catch (error) {

@@ -79,7 +79,6 @@ export class CircleController {
   ) {
     const { role } = circleMembersDto;
 
-    console.log(role, params.circleId, userId);
     try {
       const updatedMember = await this.circleService.addCircleRole(
         role,
