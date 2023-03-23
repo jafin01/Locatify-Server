@@ -52,14 +52,17 @@ model CircleMembers {
   member   User   @relation(fields: [userId], references: [id])
   circleId String
   circle   Circle @relation(fields: [circleId], references: [id])
+  role     MemberRole
 }
 
 enum MemberRole {
-  father
-  mother
-  sister
-  brother
-  aunty
-  uncle
-  friend
+  Admin
+  Member
+  Father
+  Mother
+  Sister
+  Brother
+  Aunty
+  Uncle
+  Friend
 }

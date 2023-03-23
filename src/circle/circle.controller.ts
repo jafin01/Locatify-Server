@@ -2,9 +2,9 @@ import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { CircleService } from './circle.service';
-import { CircleRoleDto } from './dto/circle-role.dto';
 import { CircleDto } from './dto/circle.dto';
 import { CircleCodeDto } from './dto/circleCode.dto';
+import { CircleMembersDto } from './dto/circleMembers.dto';
 
 @Controller('api/circle')
 export class CircleController {
@@ -29,10 +29,18 @@ export class CircleController {
   @Post('join')
   async joinCircle(
     @Body() circleCodeDto: CircleCodeDto,
+    @Body() circleMembersDto: CircleMembersDto,
     @GetCurrentUserId() userId: string,
   ) {
+    const { circleCode } = circleCodeDto;
+    const role = circleMembersDto.role || 'member';
+    console.log(role);
     try {
-      const circle = await this.circleService.joinCircle(circleCodeDto, userId);
+      const circle = await this.circleService.joinCircle(
+        circleCode,
+        userId,
+        role,
+      );
       return handleSuccess(circle);
     } catch (error) {
       return handleError(error);
@@ -65,11 +73,11 @@ export class CircleController {
 
   @Post('add-role/:circleId')
   async addCircleRole(
-    @Body() circleRoleDto: CircleRoleDto,
+    @Body() circleMembersDto: CircleMembersDto,
     @Param() params,
     @GetCurrentUserId() userId: string,
   ) {
-    const { role } = circleRoleDto;
+    const { role } = circleMembersDto;
 
     console.log(role, params.circleId, userId);
     try {

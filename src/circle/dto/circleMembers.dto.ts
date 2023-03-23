@@ -1,4 +1,4 @@
-export class circleMembers {
+export class CircleMembersDto {
   userId: string;
   circleId: string;
   role: string;
