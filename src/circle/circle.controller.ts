@@ -98,25 +98,4 @@ export class CircleController {
       return handleError(error);
     }
   }
-
-  // @Post('remove-role/:circleId')
-  // async removeCircleRole(
-  //   @Body() circleMembersDto: CircleMembersDto,
-  //   @Param() params,
-  //   @GetCurrentUserId() userId: string,
-  // ) {
-  //   const { role } = circleMembersDto;
-
-  //   try {
-  //     const updatedMember = await this.circleService.removeCircleRole(
-  //       userId,
-  //       params.circleId,
-  //       role,
-  //     );
-
-  //     return handleSuccess(updatedMember);
-  //   } catch (error) {
-  //     return handleError(error);
-  //   }
-  // }
 }
