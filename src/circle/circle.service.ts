@@ -171,27 +171,28 @@ export class CircleService {
     });
   };
 
-  // addCircleRole = (userId, circleId, role) => {
-  //   return new Promise(async (resolve, reject) => {
-  //     try {
-  //       const member = await this.getCircleMember(userId, circleId);
+  getAllCircles = (userId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const circles: any = await this.prismaService.circleMembers.findMany({
+          where: {
+            userId,
+          },
+        });
 
-  //       console.log(member);
+        const circleDetails = await Promise.all(
+          circles.map(async (circle) => {
+            const circleData = await this.getCircleDetails(circle.circleId);
+            return circleData;
+          }),
+        );
 
-  //       // const updatedMember = await this.prismaService.circleMembers.update({
-  //       //   where: {
-  //       //     id: circleId,
-  //       //   },
-  //       //   data: {
-  //       //     role,
-  //       //   },
-  //       // });
-  //       resolve(circleId);
-  //     } catch (error) {
-  //       reject(error);
-  //     }
-  //   });
-  // };
+        resolve(circleDetails);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
 
   generateCircleCode = (length) => {
     let result = '';

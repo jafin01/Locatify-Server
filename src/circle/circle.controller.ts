@@ -41,7 +41,6 @@ export class CircleController {
   ) {
     const { circleCode } = circleCodeDto;
     const role = circleMembersDto.role || 'member';
-    console.log(role);
     try {
       const circle = await this.circleService.joinCircle(
         circleCode,
@@ -94,6 +93,16 @@ export class CircleController {
       );
 
       return handleSuccess(updateMemberRoleSuccess, updatedMember);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('get-all')
+  async getAllCircles(@GetCurrentUserId() userId: string) {
+    try {
+      const circles = await this.circleService.getAllCircles(userId);
+      return handleSuccess(getCircleDataSuccess, circles);
     } catch (error) {
       return handleError(error);
     }
