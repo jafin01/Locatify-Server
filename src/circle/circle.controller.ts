@@ -78,7 +78,7 @@ export class CircleController {
     }
   }
 
-  @Post('add-role/:circleId')
+  @Post('update-role/:circleId')
   async updateCircleRole(
     @Body() circleMembersDto: CircleMembersDto,
     @Param() params,
