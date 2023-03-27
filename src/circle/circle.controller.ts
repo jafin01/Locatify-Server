@@ -5,6 +5,7 @@ import {
   circleJoinedSuccess,
   fetchCircleMembersSuccess,
   getCircleDataSuccess,
+  updateMemberRoleSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { CircleService } from './circle.service';
@@ -78,7 +79,7 @@ export class CircleController {
   }
 
   @Post('add-role/:circleId')
-  async addCircleRole(
+  async updateCircleRole(
     @Body() circleMembersDto: CircleMembersDto,
     @Param() params,
     @GetCurrentUserId() userId: string,
@@ -86,13 +87,13 @@ export class CircleController {
     const { role } = circleMembersDto;
 
     try {
-      const updatedMember = await this.circleService.addCircleRole(
+      const updatedMember = await this.circleService.updateCircleRole(
         userId,
         params.circleId,
         role,
       );
 
-      return handleSuccess('', updatedMember);
+      return handleSuccess(updateMemberRoleSuccess, updatedMember);
     } catch (error) {
       return handleError(error);
     }

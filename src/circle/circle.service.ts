@@ -125,8 +125,6 @@ export class CircleService {
             },
           });
 
-        console.log(circleMember);
-
         resolve(circleMember);
       } catch (error) {
         reject(error);
@@ -152,23 +150,21 @@ export class CircleService {
     });
   };
 
-  addCircleRole = (userId, circleId, role) => {
+  updateCircleRole = (userId, circleId, role) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const member = await this.getCircleMember(userId, circleId);
+        const member: any = await this.getCircleMember(userId, circleId);
         console.log(member);
-        // if (member) throw new Error(userAlreadyExistsError);
 
-        // const updatedMember = await this.prismaService.circleMembers.update({
-        //   where: {
-        //     id: member.id,
-        //   },
-        //   data: {
-        //     role,
-        //   },
-        // });
-        // console.log(updatedMember);
-        resolve(circleId);
+        const updatedMember = await this.prismaService.circleMembers.update({
+          where: {
+            id: member.id,
+          },
+          data: {
+            role,
+          },
+        });
+        resolve(updatedMember);
       } catch (error) {
         reject(error);
       }
