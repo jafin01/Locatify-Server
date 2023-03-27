@@ -16,3 +16,5 @@ export const circleJoinedSuccess = 'Circle Joined Successfully';
 export const fetchCircleMembersSuccess = 'Fetched Circle Members Successfully';
 export const getCircleDataSuccess = 'Fetched Circle Data Successfully';
 export const updateMemberRoleSuccess = 'Updated Role Successfully';
+export const deleteMemberSuccess = 'Deleted Member Successfully';
+export const noCircleMemberError = 'No Circle Members Found';

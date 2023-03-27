@@ -1,7 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
-import { noCircleError } from 'src/constants/errorMessages';
+import {
+  noCircleError,
+  noCircleMemberError,
+} from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { userAlreadyExistsError } from 'src/constants/errorMessages';
 @Injectable()
@@ -126,6 +129,26 @@ export class CircleService {
           });
 
         resolve(circleMember);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  deleteCircleMember = (circleId, userId) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const member: any = await this.getCircleMember(userId, circleId);
+
+        if (!member) throw new Error(noCircleMemberError);
+
+        const deletedMember = await this.prismaService.circleMembers.delete({
+          where: {
+            id: member.id,
+          },
+        });
+
+        resolve(deletedMember);
       } catch (error) {
         reject(error);
       }
