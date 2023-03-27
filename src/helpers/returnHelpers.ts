@@ -8,7 +8,11 @@ export const handleError = (error) => {
   };
 };
 
-export const handleSuccess = (data, tokens = null, message = 'success') => {
+export const handleSuccess = (
+  message = 'success',
+  data = {},
+  tokens = null,
+) => {
   return {
     success: true,
     message,

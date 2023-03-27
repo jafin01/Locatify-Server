@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Body,
   Controller,
@@ -11,7 +10,12 @@ import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decor
 import { GetCurrentUser } from 'src/common/decorator/get-current-user.decorator';
 import { Public } from 'src/common/decorator/public.decorator';
 import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
-import { loginSuccess } from 'src/constants/errorMessages';
+import {
+  loginSuccess,
+  logoutSuccess,
+  refreshTokenSuccess,
+  registerSuccess,
+} from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
@@ -19,14 +23,14 @@ import { LoginDto } from './dto/login.dto';
 
 @Controller('api/auth')
 export class AuthController {
-  constructor(private AuthService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   @Public()
   @Post('local/signup')
   async userSignup(@Body() authDto: AuthDto) {
     try {
-      const data: any = await this.AuthService.userSignup(authDto);
-      return handleSuccess(data.newUser, data.tokens);
+      const data: any = await this.authService.userSignup(authDto);
+      return handleSuccess(registerSuccess, data.newUser, data.tokens);
     } catch (error) {
       return handleError(error);
     }
@@ -37,8 +41,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userSignin(@Body() loginDto: LoginDto) {
     try {
-      const data: any = await this.AuthService.userSignin(loginDto);
-      return handleSuccess(data.user, data.tokens, loginSuccess);
+      const data: any = await this.authService.userSignin(loginDto);
+      return handleSuccess(loginSuccess, data.user, data.tokens);
     } catch (error) {
       return handleError(error);
     }
@@ -48,8 +52,8 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async userLogout(@GetCurrentUserId() userId: string) {
     try {
-      const response = await this.AuthService.userLogout(userId);
-      return handleSuccess(response);
+      await this.authService.userLogout(userId);
+      return handleSuccess(logoutSuccess);
     } catch (error) {
       return handleError(error);
     }
@@ -64,11 +68,11 @@ export class AuthController {
     @GetCurrentUser('refreshToken') refreshToken: string,
   ) {
     try {
-      const response: any = await this.AuthService.refreshTokens(
+      const response: any = await this.authService.refreshTokens(
         userId,
         refreshToken,
       );
-      return handleSuccess(response.user, response.tokens);
+      return handleSuccess(refreshTokenSuccess, response.user, response.tokens);
     } catch (error) {
       return handleError(error);
     }

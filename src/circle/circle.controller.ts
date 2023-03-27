@@ -1,5 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
+import {
+  circleCreatedSuccess,
+  circleJoinedSuccess,
+  fetchCircleMembersSuccess,
+  getCircleDataSuccess,
+} from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { CircleService } from './circle.service';
 import { CircleDto } from './dto/circle.dto';
@@ -20,7 +26,7 @@ export class CircleController {
         circleDto,
         userId,
       );
-      return handleSuccess(circle);
+      return handleSuccess(circleCreatedSuccess, circle);
     } catch (error) {
       return handleError(error);
     }
@@ -41,7 +47,7 @@ export class CircleController {
         userId,
         role,
       );
-      return handleSuccess(circle);
+      return handleSuccess(circleJoinedSuccess, circle);
     } catch (error) {
       return handleError(error);
     }
@@ -53,7 +59,7 @@ export class CircleController {
       const circleMembers = await this.circleService.getAllCircleMembers(
         params.circleId,
       );
-      return handleSuccess(circleMembers);
+      return handleSuccess(fetchCircleMembersSuccess, circleMembers);
     } catch (error) {
       return handleError(error);
     }
@@ -65,7 +71,7 @@ export class CircleController {
       const circleData = await this.circleService.getCircleDetails(
         params.circleId,
       );
-      return handleSuccess(circleData);
+      return handleSuccess(getCircleDataSuccess, circleData);
     } catch (error) {
       return handleError(error);
     }
@@ -81,14 +87,35 @@ export class CircleController {
 
     try {
       const updatedMember = await this.circleService.addCircleRole(
-        role,
         userId,
         params.circleId,
+        role,
       );
 
-      return handleSuccess(updatedMember);
+      return handleSuccess('', updatedMember);
     } catch (error) {
       return handleError(error);
     }
   }
+
+  // @Post('remove-role/:circleId')
+  // async removeCircleRole(
+  //   @Body() circleMembersDto: CircleMembersDto,
+  //   @Param() params,
+  //   @GetCurrentUserId() userId: string,
+  // ) {
+  //   const { role } = circleMembersDto;
+
+  //   try {
+  //     const updatedMember = await this.circleService.removeCircleRole(
+  //       userId,
+  //       params.circleId,
+  //       role,
+  //     );
+
+  //     return handleSuccess(updatedMember);
+  //   } catch (error) {
+  //     return handleError(error);
+  //   }
+  // }
 }

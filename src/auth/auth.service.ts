@@ -1,22 +1,21 @@
 import { Injectable } from '@nestjs/common';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon2 from 'argon2';
 import {
   accessDeniedError,
   hashError,
+  invalidCredentialsError,
   logoutSuccess,
   userAlreadyExistsError,
 } from 'src/constants/errorMessages';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JwtService } from '@nestjs/jwt';
 import { error, tokens } from 'src/types/tokens.type';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private PrismaService: PrismaService,
-    private JwtService: JwtService,
+    private prismaService: PrismaService,
+    private jwtService: JwtService,
   ) {}
 
   hashData = async (data) => {
@@ -34,7 +33,7 @@ export class AuthService {
   ): Promise<tokens | error> => {
     try {
       const [accessToken, refreshToken] = await Promise.all([
-        this.JwtService.signAsync(
+        this.jwtService.signAsync(
           {
             sub: userId,
             email,
@@ -44,7 +43,7 @@ export class AuthService {
             expiresIn: 60 * 15,
           },
         ),
-        this.JwtService.signAsync(
+        this.jwtService.signAsync(
           {
             sub: userId,
             email,
@@ -71,7 +70,7 @@ export class AuthService {
   updateRefreshTokenHash = async (userId: string, refreshToken: string) => {
     try {
       const hashedRefreshToken = await this.hashData(refreshToken);
-      await this.PrismaService.user.update({
+      await this.prismaService.user.update({
         where: {
           id: userId,
         },
@@ -98,7 +97,7 @@ export class AuthService {
       } = authDto;
 
       try {
-        const user = await this.PrismaService.user.findUnique({
+        const user = await this.prismaService.user.findUnique({
           where: { email },
         });
 
@@ -108,7 +107,7 @@ export class AuthService {
 
         const hashedPassword = await this.hashData(password);
 
-        const newUser = await this.PrismaService.user.create({
+        const newUser = await this.prismaService.user.create({
           data: {
             mobileNo: mobileNo,
             firstName: firstName,
@@ -119,7 +118,7 @@ export class AuthService {
         });
 
         if (locationTitle && latitude && longitude) {
-          await this.PrismaService.location.create({
+          await this.prismaService.location.create({
             data: {
               title: locationTitle,
               latitude,
@@ -144,20 +143,20 @@ export class AuthService {
       try {
         const { email, password } = loginDto;
 
-        const user = await this.PrismaService.user.findUnique({
+        const user = await this.prismaService.user.findUnique({
           where: {
             email,
           },
         });
 
         if (!user) {
-          throw new Error(accessDeniedError);
+          throw new Error(invalidCredentialsError);
         }
 
         const isPassword = await argon2.verify(user.hashedPassword, password);
 
         if (!isPassword) {
-          throw new Error(accessDeniedError);
+          throw new Error(invalidCredentialsError);
         }
 
         const tokens: any = await this.getTokens(user.id, user.email);
@@ -171,9 +170,9 @@ export class AuthService {
   };
 
   userLogout = (id: string) => {
-    return new Promise(async (resolve, reject) => {
+    return new Promise<void>(async (resolve, reject) => {
       try {
-        await this.PrismaService.user.updateMany({
+        await this.prismaService.user.updateMany({
           where: {
             id,
             hashedRefreshToken: {
@@ -185,7 +184,7 @@ export class AuthService {
           },
         });
 
-        resolve(logoutSuccess);
+        resolve();
       } catch (error) {
         reject(error);
       }
@@ -195,7 +194,7 @@ export class AuthService {
   refreshTokens = (id: string, refreshToken: string) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await this.PrismaService.user.findUnique({
+        const user = await this.prismaService.user.findUnique({
           where: {
             id,
           },

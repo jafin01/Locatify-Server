@@ -53,6 +53,8 @@ model CircleMembers {
   circleId String
   circle   Circle @relation(fields: [circleId], references: [id])
   role     MemberRole
+
+  @@unique([userId, circleId], name: "userId_circleId")
 }
 
 enum MemberRole {
