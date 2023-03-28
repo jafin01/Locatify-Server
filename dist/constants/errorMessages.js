@@ -1,0 +1,28 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.invalidCredentialsError = 'Invalid Credentials';
+exports.userAlreadyExistsError = 'User Already Exists';
+exports.accessDeniedError = 'Access Denied';
+exports.invalidTokenError = 'Invalid Token';
+exports.hashError = 'Could not hash';
+exports.noCircleError = 'No Circles found';
+exports.circleMemberError = 'Could not create circle member';
+exports.circleMemberExistsError = 'User already a member of this circle';
+exports.logoutSuccess = 'Logout Successfull';
+exports.loginSuccess = 'Login Success';
+exports.registerSuccess = 'Registered Successfully';
+exports.refreshTokenSuccess = 'Refreshed Token Successfully';
+exports.circleCreatedSuccess = 'Circle Created Successfully';
+exports.circleJoinedSuccess = 'Circle Joined Successfully';
+exports.fetchCircleMembersSuccess = 'Fetched Circle Members Successfully';
+exports.getCircleDataSuccess = 'Fetched Circle Data Successfully';
+exports.updateMemberRoleSuccess = 'Updated Role Successfully';
+exports.deleteMemberSuccess = 'Deleted Member Successfully';
+exports.noCircleMemberError = 'No Circle Members Found';
+exports.placeCreateSuccess = 'Place created successfully';
+exports.getPlaceById = 'Fetched place by id successfully';
+exports.getPlacesInCircle = 'Fetched all places in circle successfully';
+exports.deletePlace = 'place deleted successfully';
+exports.updatedPlace = 'updated place successfully';
+//# sourceMappingURL=errorMessages.js.map
