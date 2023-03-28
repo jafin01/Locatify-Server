@@ -29,11 +29,12 @@ model User {
 
 model Location {
   id        String @unique @default(uuid())
-  title     String
   latitude  Float
   longitude Float
   userId    String
   user      User?  @relation(fields: [userId], references: [id])
+  circleId String
+  circle    Circle? @relation(fields: [circleId], references: [id])
 }
 
 model Circle {
@@ -44,6 +45,7 @@ model Circle {
   createdUserId String
   createdUser   User            @relation(fields: [createdUserId], references: [id])
   circleMembers CircleMembers[]
+  location      Location[]
 }
 
 model CircleMembers {
