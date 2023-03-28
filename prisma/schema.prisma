@@ -23,6 +23,7 @@ model User {
   circleMembers      CircleMembers[]
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
+  places             Places[]
 
   @@map("users")
 }
@@ -37,6 +38,17 @@ model Location {
   circle    Circle? @relation(fields: [circleId], references: [id])
 }
 
+model Places {
+  id        String  @unique @default(uuid())
+  name      String
+  latitude  Float
+  longitude Float
+  userId    String
+  user      User?   @relation(fields: [userId], references: [id])
+  circleId  String
+  circle    Circle? @relation(fields: [circleId], references: [id])
+}
+
 model Circle {
   id            String          @unique @default(uuid())
   circleCode    String
@@ -45,13 +57,14 @@ model Circle {
   createdUserId String
   createdUser   User            @relation(fields: [createdUserId], references: [id])
   circleMembers CircleMembers[]
+  places        Places[]
   location      Location[]
 }
 
 model CircleMembers {
-  id       String @unique @default(uuid())
+  id       String     @unique @default(uuid())
   userId   String
-  member   User   @relation(fields: [userId], references: [id])
+  member   User       @relation(fields: [userId], references: [id])
   circleId String
   circle   Circle @relation(fields: [circleId], references: [id])
   role     String?
