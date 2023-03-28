@@ -14,7 +14,6 @@ export class LocationsService {
             circleId,
           },
         });
-
         resolve(locations);
       } catch (error) {
         reject(error);

@@ -16,7 +16,7 @@ export class LocationsController {
   @Get('get-all/:circleId')
   async getLocations(@Param('circleId') circleId: string) {
     try {
-      const locations = this.locationsService.getLocations(circleId);
+      const locations = await this.locationsService.getLocations(circleId);
       return handleSuccess(fetchLocationSuccess, locations);
     } catch (error) {
       return handleError(error);
