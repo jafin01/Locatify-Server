@@ -18,3 +18,7 @@ export const getCircleDataSuccess = 'Fetched Circle Data Successfully';
 export const updateMemberRoleSuccess = 'Updated Role Successfully';
 export const deleteMemberSuccess = 'Deleted Member Successfully';
 export const noCircleMemberError = 'No Circle Members Found';
+export const createdLocationSuccess = 'Created Location Successfully';
+export const fetchLocationSuccess = 'Fetched Location Successfully';
+export const fetchLocationError = 'Could not fetch location';
+export const updateLocationSuccess = 'Updated Location Successfully';
