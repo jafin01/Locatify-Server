@@ -23,3 +23,7 @@ export const getPlaceById = 'Fetched place by id successfully';
 export const getPlacesInCircle = 'Fetched all places in circle successfully';
 export const deletePlace = 'place deleted successfully';
 export const updatedPlace = 'updated place successfully';
+export const createdLocationSuccess = 'Created Location Successfully';
+export const fetchLocationSuccess = 'Fetched Location Successfully';
+export const fetchLocationError = 'Could not fetch location';
+export const updateLocationSuccess = 'Updated Location Successfully';

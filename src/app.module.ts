@@ -6,6 +6,7 @@ import { AccessTokenGuard } from './common/guards/accessToken.guard';
 import { PrismaModule } from './prisma/prisma.module';
 import { CircleModule } from './circle/circle.module';
 import { PlacesModule } from './places/places.module';
+import { LocationsModule } from './locations/locations.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { PlacesModule } from './places/places.module';
     PrismaModule,
     CircleModule,
     PlacesModule,
+    LocationsModule,
   ],
   controllers: [],
   providers: [
