@@ -88,6 +88,21 @@ let CircleService = class CircleService {
                 }
             });
         };
+        this.getCircleDetailsByCode = (circleCode) => {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const circle = await this.prismaService.circle.findFirst({
+                        where: {
+                            circleCode,
+                        },
+                    });
+                    resolve(circle);
+                }
+                catch (error) {
+                    reject(error);
+                }
+            });
+        };
         this.getAllCircleMembers = (circleId) => {
             return new Promise(async (resolve, reject) => {
                 try {

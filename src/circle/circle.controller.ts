@@ -91,6 +91,18 @@ export class CircleController {
     }
   }
 
+  @Get('get-data-by-code/:circleCode')
+  async getCircleDataByCode(@Param() params) {
+    try {
+      const circleData = await this.circleService.getCircleDetailsByCode(
+        params.circleCode,
+      );
+      return handleSuccess(getCircleDataSuccess, circleData);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
   @Post('update-role/:circleId')
   async updateCircleRole(
     @Body() circleMembersDto: CircleMembersDto,
