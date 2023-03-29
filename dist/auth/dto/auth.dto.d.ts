@@ -5,7 +5,4 @@ export declare class AuthDto {
     email: string;
     password: string;
     hashedRefreshToken: string;
-    latitude: number;
-    longitude: number;
-    locationTitle: string;
 }

@@ -52,6 +52,7 @@ model Places {
 model Circle {
   id            String          @unique @default(uuid())
   circleCode    String
+  codeExpiresAt DateTime        @default(dbgenerated("now() + interval '3 days'"))
   title         String
   description   String?
   createdUserId String

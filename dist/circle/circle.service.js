@@ -68,6 +68,10 @@ let CircleService = class CircleService {
                     });
                     if (!circle)
                         throw new Error(errorMessages_1.noCircleError);
+                    const isValidCode = new Date() < circle.codeExpiresAt;
+                    if (!isValidCode) {
+                        throw new Error(errorMessages_1.codeExpiredError);
+                    }
                     const isExistingMember = await this.prismaService.circleMembers.findFirst({
                         where: {
                             circleId: circle.id,

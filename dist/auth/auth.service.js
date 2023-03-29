@@ -76,7 +76,7 @@ let AuthService = class AuthService {
         };
         this.userSignup = (authDto) => {
             return new Promise(async (resolve, reject) => {
-                const { mobileNo, firstName, lastName, email, password, locationTitle, latitude, longitude, } = authDto;
+                const { mobileNo, firstName, lastName, email, password } = authDto;
                 try {
                     const user = await this.prismaService.user.findUnique({
                         where: { email },
@@ -94,16 +94,6 @@ let AuthService = class AuthService {
                             hashedPassword,
                         },
                     });
-                    if (locationTitle && latitude && longitude) {
-                        await this.prismaService.location.create({
-                            data: {
-                                title: locationTitle,
-                                latitude,
-                                longitude,
-                                user: { connect: { id: newUser.id } },
-                            },
-                        });
-                    }
                     const tokens = await this.getTokens(newUser.id, newUser.email);
                     await this.updateRefreshTokenHash(newUser.id, tokens.refresh_token);
                     resolve({ newUser, tokens });
