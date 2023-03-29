@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.codeExpiredError = exports.updateLocationSuccess = exports.fetchLocationError = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.fetchUsersSuccess = exports.codeExpiredError = exports.updateLocationSuccess = exports.fetchLocationError = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -30,4 +30,5 @@ exports.fetchLocationSuccess = 'Fetched Location Successfully';
 exports.fetchLocationError = 'Could not fetch location';
 exports.updateLocationSuccess = 'Updated Location Successfully';
 exports.codeExpiredError = 'Code Expired';
+exports.fetchUsersSuccess = 'Fetched Users Successfully';
 //# sourceMappingURL=errorMessages.js.map

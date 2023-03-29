@@ -28,3 +28,4 @@ export const fetchLocationSuccess = 'Fetched Location Successfully';
 export const fetchLocationError = 'Could not fetch location';
 export const updateLocationSuccess = 'Updated Location Successfully';
 export const codeExpiredError = 'Code Expired';
+export const fetchUsersSuccess = 'Fetched Users Successfully';

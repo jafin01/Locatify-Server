@@ -27,3 +27,4 @@ export declare const fetchLocationSuccess = "Fetched Location Successfully";
 export declare const fetchLocationError = "Could not fetch location";
 export declare const updateLocationSuccess = "Updated Location Successfully";
 export declare const codeExpiredError = "Code Expired";
+export declare const fetchUsersSuccess = "Fetched Users Successfully";
