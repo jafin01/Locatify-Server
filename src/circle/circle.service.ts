@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
 import {
+  codeExpiredError,
   noCircleError,
   noCircleMemberError,
 } from 'src/constants/errorMessages';
@@ -9,7 +10,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { userAlreadyExistsError } from 'src/constants/errorMessages';
 @Injectable()
 export class CircleService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
   id: number;
   name: string;
   circleMembers: User[];
@@ -67,6 +68,12 @@ export class CircleService {
         });
 
         if (!circle) throw new Error(noCircleError);
+
+        const isValidCode = new Date() < circle.codeExpiresAt;
+
+        if (!isValidCode) {
+          throw new Error(codeExpiredError);
+        }
 
         const isExistingMember =
           await this.prismaService.circleMembers.findFirst({

@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.codeExpiredError = exports.updateLocationSuccess = exports.fetchLocationError = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -25,4 +25,9 @@ exports.getPlaceById = 'Fetched place by id successfully';
 exports.getPlacesInCircle = 'Fetched all places in circle successfully';
 exports.deletePlace = 'place deleted successfully';
 exports.updatedPlace = 'updated place successfully';
+exports.createdLocationSuccess = 'Created Location Successfully';
+exports.fetchLocationSuccess = 'Fetched Location Successfully';
+exports.fetchLocationError = 'Could not fetch location';
+exports.updateLocationSuccess = 'Updated Location Successfully';
+exports.codeExpiredError = 'Code Expired';
 //# sourceMappingURL=errorMessages.js.map
