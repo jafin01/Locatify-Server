@@ -16,6 +16,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const circle_module_1 = require("./circle/circle.module");
 const places_module_1 = require("./places/places.module");
 const locations_module_1 = require("./locations/locations.module");
+const devices_module_1 = require("./devices/devices.module");
 const users_module_1 = require("./users/users.module");
 let AppModule = class AppModule {
 };
@@ -31,6 +32,7 @@ AppModule = __decorate([
             circle_module_1.CircleModule,
             places_module_1.PlacesModule,
             locations_module_1.LocationsModule,
+            devices_module_1.DevicesModule,
             users_module_1.UsersModule,
         ],
         controllers: [],
