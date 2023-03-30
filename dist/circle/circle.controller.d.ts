@@ -40,6 +40,13 @@ export declare class CircleController {
         tokens: any;
         stack: any;
     }>;
+    getCircleDataByCode(params: any): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
     updateCircleRole(circleMembersDto: CircleMembersDto, params: any, userId: string): Promise<{
         success: boolean;
         message: any;

@@ -8,6 +8,7 @@ import { CircleModule } from './circle/circle.module';
 import { PlacesModule } from './places/places.module';
 import { LocationsModule } from './locations/locations.module';
 import { DevicesModule } from './devices/devices.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { DevicesModule } from './devices/devices.module';
     PlacesModule,
     LocationsModule,
     DevicesModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

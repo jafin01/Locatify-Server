@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
 import {
+  codeExpiredError,
   noCircleError,
   noCircleMemberError,
 } from 'src/constants/errorMessages';
@@ -68,6 +69,12 @@ export class CircleService {
 
         if (!circle) throw new Error(noCircleError);
 
+        const isValidCode = new Date() < circle.codeExpiresAt;
+
+        if (!isValidCode) {
+          throw new Error(codeExpiredError);
+        }
+
         const isExistingMember =
           await this.prismaService.circleMembers.findFirst({
             where: {
@@ -80,6 +87,21 @@ export class CircleService {
 
         await this.createCircleMember(userId, circle.id, role);
 
+        resolve(circle);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+
+  getCircleDetailsByCode = (circleCode) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const circle = await this.prismaService.circle.findFirst({
+          where: {
+            circleCode,
+          },
+        });
         resolve(circle);
       } catch (error) {
         reject(error);

@@ -72,6 +72,15 @@ let CircleController = class CircleController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async getCircleDataByCode(params) {
+        try {
+            const circleData = await this.circleService.getCircleDetailsByCode(params.circleCode);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circleData);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
     async updateCircleRole(circleMembersDto, params, userId) {
         const { role } = circleMembersDto;
         try {
@@ -131,6 +140,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], CircleController.prototype, "getCircleData", null);
+__decorate([
+    (0, common_1.Get)('get-data-by-code/:circleCode'),
+    __param(0, (0, common_1.Param)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], CircleController.prototype, "getCircleDataByCode", null);
 __decorate([
     (0, common_1.Post)('update-role/:circleId'),
     __param(0, (0, common_1.Body)()),

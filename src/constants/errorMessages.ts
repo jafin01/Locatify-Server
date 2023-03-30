@@ -31,3 +31,5 @@ export const createdDevice = 'Device Created Successfully';
 export const getDeviceById = 'Device fetched successfully';
 export const getDevices = 'devices are all fetched successfully';
 export const deleteDevice = 'device deleted successfully';
+export const codeExpiredError = 'Code Expired';
+export const fetchUsersSuccess = 'Fetched Users Successfully';
