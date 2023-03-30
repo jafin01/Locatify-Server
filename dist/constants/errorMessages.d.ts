@@ -33,7 +33,6 @@ export declare const createdDevice = "Device Created Successfully";
 export declare const getDeviceById = "Device fetched successfully";
 export declare const getDevices = "devices are all fetched successfully";
 export declare const deleteDevice = "device deleted successfully";
-export declare const codeExpiredError = "Code Expired";
 export declare const fetchUsersSuccess = "Fetched Users Successfully";
 export declare const mobileUpdateSuccess = "Mobile Number Updated Successfully";
 export declare const fetchUserSuccess = "Fetched User Successfully";

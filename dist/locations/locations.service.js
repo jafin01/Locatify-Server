@@ -25,6 +25,8 @@ let LocationsService = class LocationsService {
                         circleId,
                     },
                 });
+                if (locations.length === 0)
+                    throw new Error(errorMessages_1.noLocationFoundError);
                 resolve(locations);
             }
             catch (error) {
@@ -40,6 +42,8 @@ let LocationsService = class LocationsService {
                         AND: [{ userId: userId }, { circleId: circleId }],
                     },
                 });
+                if (!location)
+                    throw new Error(errorMessages_1.noLocationFoundError);
                 resolve(location);
             }
             catch (error) {
@@ -55,6 +59,8 @@ let LocationsService = class LocationsService {
                         id: locationId,
                     },
                 });
+                if (!location)
+                    throw new Error(errorMessages_1.noLocationFoundError);
                 resolve(location);
             }
             catch (error) {
@@ -86,9 +92,6 @@ let LocationsService = class LocationsService {
             const { circleId, latitude, longitude } = locationDto;
             try {
                 const locationToUpdate = await this.getLocationByUser(userId, circleId);
-                if (!locationToUpdate) {
-                    throw new Error(errorMessages_1.fetchLocationError);
-                }
                 const location = await this.prismaService.location.update({
                     where: {
                         id: locationToUpdate.id,

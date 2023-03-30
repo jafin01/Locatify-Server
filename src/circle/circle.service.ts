@@ -152,7 +152,7 @@ export class CircleService {
 
         const circleMembers = await Promise.all(
           members.map(async (member) => {
-            const user = await this.prismaService.user.findMany({
+            const user = await this.prismaService.user.findFirst({
               where: {
                 id: member.userId,
               },
