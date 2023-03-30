@@ -1,11 +1,13 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
+  addCircleMemberSuccess,
   circleCreatedSuccess,
   circleJoinedSuccess,
   deleteMemberSuccess,
   fetchCircleMembersSuccess,
-  getCircleDataSuccess,
+  fetchCirclesSuccess,
+  fetchCircleSuccess,
   updateMemberRoleSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
@@ -54,6 +56,25 @@ export class CircleController {
     }
   }
 
+  @Post('add-member/:circleId/:userId')
+  async addCircleMember(
+    @Param() params,
+    @Body() circleMembersDto: CircleMembersDto,
+  ) {
+    const { circleId, userId } = params;
+    const role = circleMembersDto.role || 'member';
+    try {
+      const addedMember = await this.circleService.addCircleMember(
+        circleId,
+        userId,
+        role,
+      );
+      return handleSuccess(addCircleMemberSuccess, addedMember);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
   @Get('get-members/:circleId')
   async getAllCircleMembers(@Param() params) {
     try {
@@ -85,7 +106,7 @@ export class CircleController {
       const circleData = await this.circleService.getCircleDetails(
         params.circleId,
       );
-      return handleSuccess(getCircleDataSuccess, circleData);
+      return handleSuccess(fetchCircleSuccess, circleData);
     } catch (error) {
       return handleError(error);
     }
@@ -97,7 +118,7 @@ export class CircleController {
       const circleData = await this.circleService.getCircleDetailsByCode(
         params.circleCode,
       );
-      return handleSuccess(getCircleDataSuccess, circleData);
+      return handleSuccess(fetchCircleSuccess, circleData);
     } catch (error) {
       return handleError(error);
     }
@@ -128,7 +149,7 @@ export class CircleController {
   async getAllCircles(@GetCurrentUserId() userId: string) {
     try {
       const circles = await this.circleService.getAllCircles(userId);
-      return handleSuccess(getCircleDataSuccess, circles);
+      return handleSuccess(fetchCirclesSuccess, circles);
     } catch (error) {
       return handleError(error);
     }

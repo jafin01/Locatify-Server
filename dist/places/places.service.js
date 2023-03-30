@@ -47,6 +47,8 @@ let PlacesService = class PlacesService {
                             id: placeId,
                         },
                     });
+                    if (!place)
+                        throw new Error(errorMessages_1.noPlaceFoundError);
                     resolve(place);
                 }
                 catch (error) {
@@ -59,7 +61,7 @@ let PlacesService = class PlacesService {
                 try {
                     const circle = await this.circleServices.getCircleDetails(circleId);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleError);
+                        throw new Error(errorMessages_1.noCircleFoundError);
                     const places = await this.prismaService.places.findMany({
                         where: {
                             circleId,
@@ -77,9 +79,8 @@ let PlacesService = class PlacesService {
             return new Promise(async (resolve, reject) => {
                 try {
                     const circle = await this.circleServices.getCircleDetails(circleId);
-                    console.log(circle);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleError);
+                        throw new Error(errorMessages_1.noCircleFoundError);
                     const place = await this.prismaService.places.delete({
                         where: {
                             id,
