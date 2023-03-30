@@ -1,4 +1,6 @@
-node_modules/
+node_modules
 .env
 .env.local
-dist/
+dist
+.DS_Store
+prisma/.DS_Store
