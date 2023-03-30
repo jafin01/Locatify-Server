@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { fetchLocationError } from 'src/constants/errorMessages';
+import { noLocationFoundError } from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -14,6 +14,9 @@ export class LocationsService {
             circleId,
           },
         });
+
+        if (locations.length === 0) throw new Error(noLocationFoundError);
+
         resolve(locations);
       } catch (error) {
         reject(error);
@@ -30,6 +33,8 @@ export class LocationsService {
           },
         });
 
+        if (!location) throw new Error(noLocationFoundError);
+
         resolve(location);
       } catch (error) {
         reject(error);
@@ -45,6 +50,8 @@ export class LocationsService {
             id: locationId,
           },
         });
+
+        if (!location) throw new Error(noLocationFoundError);
 
         resolve(location);
       } catch (error) {
@@ -81,10 +88,6 @@ export class LocationsService {
           userId,
           circleId,
         );
-
-        if (!locationToUpdate) {
-          throw new Error(fetchLocationError);
-        }
 
         const location = await this.prismaService.location.update({
           where: {

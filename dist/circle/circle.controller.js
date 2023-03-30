@@ -94,7 +94,7 @@ let CircleController = class CircleController {
     async getAllCircles(userId) {
         try {
             const circles = await this.circleService.getAllCircles(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circles);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCirclesSuccess, circles);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

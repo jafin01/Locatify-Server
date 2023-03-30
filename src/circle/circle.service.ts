@@ -3,7 +3,8 @@ import { User } from '@prisma/client';
 import { characters } from 'src/constants/circleConstants';
 import {
   codeExpiredError,
-  noCircleError,
+  codeInvalidError,
+  noCircleFoundError,
   noCircleMemberError,
 } from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -67,7 +68,7 @@ export class CircleService {
           },
         });
 
-        if (!circle) throw new Error(noCircleError);
+        if (!circle) throw new Error(noCircleFoundError);
 
         const isValidCode = new Date() < circle.codeExpiresAt;
 
@@ -102,6 +103,8 @@ export class CircleService {
             circleCode,
           },
         });
+
+        if (!circle) throw new Error(codeInvalidError);
         resolve(circle);
       } catch (error) {
         reject(error);
@@ -114,7 +117,7 @@ export class CircleService {
       try {
         const circle = await this.getCircleDetails(circleId);
 
-        if (!circle) throw new Error(noCircleError);
+        if (!circle) throw new Error(noCircleFoundError);
 
         const members: any = await this.prismaService.circleMembers.findMany({
           where: {
@@ -186,7 +189,7 @@ export class CircleService {
           },
         });
 
-        if (!circle) throw new Error(noCircleError);
+        if (!circle) throw new Error(noCircleFoundError);
 
         resolve(circle);
       } catch (error) {

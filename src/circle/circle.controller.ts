@@ -5,6 +5,7 @@ import {
   circleJoinedSuccess,
   deleteMemberSuccess,
   fetchCircleMembersSuccess,
+  fetchCirclesSuccess,
   fetchCircleSuccess,
   updateMemberRoleSuccess,
 } from 'src/constants/errorMessages';
@@ -128,7 +129,7 @@ export class CircleController {
   async getAllCircles(@GetCurrentUserId() userId: string) {
     try {
       const circles = await this.circleService.getAllCircles(userId);
-      return handleSuccess(fetchCircleSuccess, circles);
+      return handleSuccess(fetchCirclesSuccess, circles);
     } catch (error) {
       return handleError(error);
     }
