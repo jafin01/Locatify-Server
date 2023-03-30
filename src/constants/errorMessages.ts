@@ -11,6 +11,7 @@ export const codeExpiredError = 'Code Expired';
 export const codeInvalidError = 'Code Invalid';
 export const noPlaceFoundError = 'No Place Found';
 export const noLocationFoundError = 'No Location Found';
+export const passwordDoesNotMatchError = 'Password Does Not Match';
 
 export const logoutSuccess = 'Logout Successfull';
 export const loginSuccess = 'Login Success';
@@ -35,3 +36,4 @@ export const fetchUserSuccess = 'Fetched User Successfully';
 export const updateLastSeenSuccess = 'Updated Last Seen Successfully';
 export const fetchCircleSuccess = 'Fetched Circle Successfully';
 export const fetchCirclesSuccess = 'Fetched Circles Successfully';
+export const addCircleMemberSuccess = 'Added Circle Member Successfully';

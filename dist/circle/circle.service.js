@@ -88,6 +88,25 @@ let CircleService = class CircleService {
                 }
             });
         };
+        this.addCircleMember = (circleId, userId, role) => {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const isExistingMember = await this.prismaService.circleMembers.findFirst({
+                        where: {
+                            circleId,
+                            userId,
+                        },
+                    });
+                    if (isExistingMember)
+                        throw new Error(errorMessages_2.userAlreadyExistsError);
+                    const createdMember = await this.createCircleMember(userId, circleId, role);
+                    resolve(createdMember);
+                }
+                catch (error) {
+                    reject(error);
+                }
+            });
+        };
         this.getCircleDetailsByCode = (circleCode) => {
             return new Promise(async (resolve, reject) => {
                 try {

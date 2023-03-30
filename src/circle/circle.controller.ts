@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
+  addCircleMemberSuccess,
   circleCreatedSuccess,
   circleJoinedSuccess,
   deleteMemberSuccess,
@@ -50,6 +51,25 @@ export class CircleController {
         role,
       );
       return handleSuccess(circleJoinedSuccess, circle);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Post('add-member/:circleId/:userId')
+  async addCircleMember(
+    @Param() params,
+    @Body() circleMembersDto: CircleMembersDto,
+  ) {
+    const { circleId, userId } = params;
+    const role = circleMembersDto.role || 'member';
+    try {
+      const addedMember = await this.circleService.addCircleMember(
+        circleId,
+        userId,
+        role,
+      );
+      return handleSuccess(addCircleMemberSuccess, addedMember);
     } catch (error) {
       return handleError(error);
     }

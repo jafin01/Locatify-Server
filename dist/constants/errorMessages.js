@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchCirclesSuccess = exports.fetchCircleSuccess = exports.updateLastSeenSuccess = exports.fetchUserSuccess = exports.mobileUpdateSuccess = exports.fetchUsersSuccess = exports.updateLocationSuccess = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.noLocationFoundError = exports.noPlaceFoundError = exports.codeInvalidError = exports.codeExpiredError = exports.noCircleFoundError = exports.noCircleMemberError = exports.circleMemberExistsError = exports.circleMemberError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.addCircleMemberSuccess = exports.fetchCirclesSuccess = exports.fetchCircleSuccess = exports.updateLastSeenSuccess = exports.fetchUserSuccess = exports.mobileUpdateSuccess = exports.fetchUsersSuccess = exports.updateLocationSuccess = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.passwordDoesNotMatchError = exports.noLocationFoundError = exports.noPlaceFoundError = exports.codeInvalidError = exports.codeExpiredError = exports.noCircleFoundError = exports.noCircleMemberError = exports.circleMemberExistsError = exports.circleMemberError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -14,6 +14,7 @@ exports.codeExpiredError = 'Code Expired';
 exports.codeInvalidError = 'Code Invalid';
 exports.noPlaceFoundError = 'No Place Found';
 exports.noLocationFoundError = 'No Location Found';
+exports.passwordDoesNotMatchError = 'Password Does Not Match';
 exports.logoutSuccess = 'Logout Successfull';
 exports.loginSuccess = 'Login Success';
 exports.registerSuccess = 'Registered Successfully';
@@ -37,4 +38,5 @@ exports.fetchUserSuccess = 'Fetched User Successfully';
 exports.updateLastSeenSuccess = 'Updated Last Seen Successfully';
 exports.fetchCircleSuccess = 'Fetched Circle Successfully';
 exports.fetchCirclesSuccess = 'Fetched Circles Successfully';
+exports.addCircleMemberSuccess = 'Added Circle Member Successfully';
 //# sourceMappingURL=errorMessages.js.map
