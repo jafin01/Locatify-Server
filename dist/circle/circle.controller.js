@@ -66,7 +66,7 @@ let CircleController = class CircleController {
     async getCircleData(params) {
         try {
             const circleData = await this.circleService.getCircleDetails(params.circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -75,7 +75,7 @@ let CircleController = class CircleController {
     async getCircleDataByCode(params) {
         try {
             const circleData = await this.circleService.getCircleDetailsByCode(params.circleCode);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -94,7 +94,7 @@ let CircleController = class CircleController {
     async getAllCircles(userId) {
         try {
             const circles = await this.circleService.getAllCircles(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circles);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circles);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

@@ -5,7 +5,7 @@ import {
   circleJoinedSuccess,
   deleteMemberSuccess,
   fetchCircleMembersSuccess,
-  getCircleDataSuccess,
+  fetchCircleSuccess,
   updateMemberRoleSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
@@ -85,7 +85,7 @@ export class CircleController {
       const circleData = await this.circleService.getCircleDetails(
         params.circleId,
       );
-      return handleSuccess(getCircleDataSuccess, circleData);
+      return handleSuccess(fetchCircleSuccess, circleData);
     } catch (error) {
       return handleError(error);
     }
@@ -97,7 +97,7 @@ export class CircleController {
       const circleData = await this.circleService.getCircleDetailsByCode(
         params.circleCode,
       );
-      return handleSuccess(getCircleDataSuccess, circleData);
+      return handleSuccess(fetchCircleSuccess, circleData);
     } catch (error) {
       return handleError(error);
     }
@@ -128,7 +128,7 @@ export class CircleController {
   async getAllCircles(@GetCurrentUserId() userId: string) {
     try {
       const circles = await this.circleService.getAllCircles(userId);
-      return handleSuccess(getCircleDataSuccess, circles);
+      return handleSuccess(fetchCircleSuccess, circles);
     } catch (error) {
       return handleError(error);
     }
