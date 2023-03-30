@@ -15,6 +15,8 @@ const accessToken_guard_1 = require("./common/guards/accessToken.guard");
 const prisma_module_1 = require("./prisma/prisma.module");
 const circle_module_1 = require("./circle/circle.module");
 const places_module_1 = require("./places/places.module");
+const locations_module_1 = require("./locations/locations.module");
+const devices_module_1 = require("./devices/devices.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -28,6 +30,8 @@ AppModule = __decorate([
             prisma_module_1.PrismaModule,
             circle_module_1.CircleModule,
             places_module_1.PlacesModule,
+            locations_module_1.LocationsModule,
+            devices_module_1.DevicesModule,
         ],
         controllers: [],
         providers: [

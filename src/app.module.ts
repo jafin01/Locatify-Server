@@ -7,6 +7,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { CircleModule } from './circle/circle.module';
 import { PlacesModule } from './places/places.module';
 import { LocationsModule } from './locations/locations.module';
+import { DevicesModule } from './devices/devices.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { LocationsModule } from './locations/locations.module';
     CircleModule,
     PlacesModule,
     LocationsModule,
+    DevicesModule,
   ],
   controllers: [],
   providers: [

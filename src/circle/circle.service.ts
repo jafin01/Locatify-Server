@@ -9,7 +9,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { userAlreadyExistsError } from 'src/constants/errorMessages';
 @Injectable()
 export class CircleService {
-  constructor(private prismaService: PrismaService) { }
+  constructor(private prismaService: PrismaService) {}
   id: number;
   name: string;
   circleMembers: User[];
