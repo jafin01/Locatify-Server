@@ -1,9 +1,8 @@
-import { Strategy } from 'passport-jwt';
 type JwtPayload = {
     sub: string;
     email: string;
 };
-declare const AccessTokenStrategy_base: new (...args: any[]) => Strategy;
+declare const AccessTokenStrategy_base: any;
 export declare class AccessTokenStrategy extends AccessTokenStrategy_base {
     constructor();
     validate(payload: JwtPayload): JwtPayload;

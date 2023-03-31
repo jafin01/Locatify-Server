@@ -1,0 +1,6 @@
+-- AlterTable
+ALTER TABLE "Circle" ALTER COLUMN "codeExpiresAt" SET DEFAULT now() + interval '3 days';
+
+-- AlterTable
+ALTER TABLE "SessionTime" ALTER COLUMN "inTime" SET DEFAULT CURRENT_TIMESTAMP,
+ALTER COLUMN "outTime" SET DEFAULT CURRENT_TIMESTAMP;

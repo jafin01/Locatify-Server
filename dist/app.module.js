@@ -18,6 +18,7 @@ const places_module_1 = require("./places/places.module");
 const locations_module_1 = require("./locations/locations.module");
 const devices_module_1 = require("./devices/devices.module");
 const users_module_1 = require("./users/users.module");
+const sessiontime_module_1 = require("./sessiontime/sessiontime.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -34,6 +35,7 @@ AppModule = __decorate([
             locations_module_1.LocationsModule,
             devices_module_1.DevicesModule,
             users_module_1.UsersModule,
+            sessiontime_module_1.SessiontimeModule,
         ],
         controllers: [],
         providers: [
