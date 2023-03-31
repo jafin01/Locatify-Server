@@ -59,9 +59,9 @@ let LocationsController = class LocationsController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
-    async updateLocation(locationDto, userId) {
+    async updateLocation(locationDto, circleId, userId) {
         try {
-            const location = await this.locationsService.updateLocation(locationDto, userId);
+            const location = await this.locationsService.updateLocation(locationDto, circleId, userId);
             return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateLocationSuccess, location);
         }
         catch (error) {
@@ -77,9 +77,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], LocationsController.prototype, "getLocations", null);
 __decorate([
-    (0, common_1.Get)('get-one/:circleId'),
+    (0, common_1.Get)('get-one/:circleId/:userId'),
     __param(0, (0, common_1.Param)('circleId')),
-    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __param(1, (0, common_1.Param)('userId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
@@ -101,11 +101,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], LocationsController.prototype, "createLocation", null);
 __decorate([
-    (0, common_1.Post)('update/'),
+    (0, common_1.Post)('update/:circleId'),
     __param(0, (0, common_1.Body)()),
-    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __param(1, (0, common_1.Param)('circleId')),
+    __param(2, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [location_dto_1.LocationDto, String]),
+    __metadata("design:paramtypes", [location_dto_1.LocationDto, String, String]),
     __metadata("design:returntype", Promise)
 ], LocationsController.prototype, "updateLocation", null);
 LocationsController = __decorate([

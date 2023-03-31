@@ -31,7 +31,7 @@ export declare class LocationsController {
         tokens: any;
         stack: any;
     }>;
-    updateLocation(locationDto: LocationDto, userId: string): Promise<{
+    updateLocation(locationDto: LocationDto, circleId: string, userId: string): Promise<{
         success: boolean;
         message: any;
         data: any;

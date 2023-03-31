@@ -70,7 +70,8 @@ let LocationsService = class LocationsService {
     }
     createLocation(locationDto, userId, circleId) {
         return new Promise(async (resolve, reject) => {
-            const { latitude, longitude } = locationDto;
+            const latitude = locationDto.latitude || 0.0;
+            const longitude = locationDto.longitude || 0.0;
             try {
                 const location = await this.prismaService.location.create({
                     data: {
@@ -87,9 +88,9 @@ let LocationsService = class LocationsService {
             }
         });
     }
-    updateLocation(locationDto, userId) {
+    updateLocation(locationDto, circleId, userId) {
         return new Promise(async (resolve, reject) => {
-            const { circleId, latitude, longitude } = locationDto;
+            const { latitude, longitude } = locationDto;
             try {
                 const locationToUpdate = await this.getLocationByUser(userId, circleId);
                 const location = await this.prismaService.location.update({
