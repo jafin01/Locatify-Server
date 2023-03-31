@@ -32,3 +32,6 @@ export declare const getDevices = "devices are all fetched successfully";
 export declare const deleteDevice = "device deleted successfully";
 export declare const codeExpiredError = "Code Expired";
 export declare const fetchUsersSuccess = "Fetched Users Successfully";
+export declare const createSessionTimeSuccess = "created sessionTime Successfully";
+export declare const endSessionTimeSuccess = "session ended successfully";
+export declare const getTotalSessionTimeSuccess = "fetched total time-sessions successfully";

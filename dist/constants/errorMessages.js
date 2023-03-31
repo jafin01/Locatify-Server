@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.fetchUsersSuccess = exports.codeExpiredError = exports.deleteDevice = exports.getDevices = exports.getDeviceById = exports.createdDevice = exports.updateLocationSuccess = exports.fetchLocationError = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.getTotalSessionTimeSuccess = exports.endSessionTimeSuccess = exports.createSessionTimeSuccess = exports.fetchUsersSuccess = exports.codeExpiredError = exports.deleteDevice = exports.getDevices = exports.getDeviceById = exports.createdDevice = exports.updateLocationSuccess = exports.fetchLocationError = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.noCircleMemberError = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.getCircleDataSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.circleMemberExistsError = exports.circleMemberError = exports.noCircleError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -35,4 +35,7 @@ exports.getDevices = 'devices are all fetched successfully';
 exports.deleteDevice = 'device deleted successfully';
 exports.codeExpiredError = 'Code Expired';
 exports.fetchUsersSuccess = 'Fetched Users Successfully';
+exports.createSessionTimeSuccess = 'created sessionTime Successfully';
+exports.endSessionTimeSuccess = 'session ended successfully';
+exports.getTotalSessionTimeSuccess = 'fetched total time-sessions successfully';
 //# sourceMappingURL=errorMessages.js.map

@@ -22,6 +22,7 @@ model User {
   devices            Devices[]
   location           Location[]
   places             Places[]
+  sessionTime       SessionTime[]
 
   @@map("users")
 }
@@ -79,3 +80,12 @@ model Devices {
   app_version    String
   user           User   @relation(fields: [userId], references: [id])
 }
+
+model SessionTime {
+  id String @unique @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  inTime DateTime @default(now())
+  outTime DateTime? 
+}
+
