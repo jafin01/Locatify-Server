@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updatePasswordSuccess = exports.addCircleMemberSuccess = exports.fetchCirclesSuccess = exports.fetchCircleSuccess = exports.updateLastSeenSuccess = exports.fetchUserSuccess = exports.mobileUpdateSuccess = exports.activeUsersCountSuccess = exports.allActiceUsersSuccess = exports.getTotalSessionTimeSuccess = exports.endSessionTimeSuccess = exports.createSessionTimeSuccess = exports.fetchUsersSuccess = exports.deleteDevice = exports.getDevices = exports.getDeviceById = exports.createdDevice = exports.updateLocationSuccess = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.passwordDoesNotMatchError = exports.noLocationFoundError = exports.noPlaceFoundError = exports.codeInvalidError = exports.codeExpiredError = exports.noCircleFoundError = exports.noCircleMemberError = exports.circleMemberExistsError = exports.circleMemberError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
+exports.updateEmailSuccess = exports.currentPasswordIncorrectError = exports.updatePasswordSuccess = exports.addCircleMemberSuccess = exports.fetchCirclesSuccess = exports.fetchCircleSuccess = exports.updateLastSeenSuccess = exports.fetchUserSuccess = exports.mobileUpdateSuccess = exports.activeUsersCountSuccess = exports.allActiceUsersSuccess = exports.getTotalSessionTimeSuccess = exports.endSessionTimeSuccess = exports.createSessionTimeSuccess = exports.fetchUsersSuccess = exports.deleteDevice = exports.getDevices = exports.getDeviceById = exports.createdDevice = exports.updateLocationSuccess = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.passwordDoesNotMatchError = exports.noLocationFoundError = exports.noPlaceFoundError = exports.codeInvalidError = exports.codeExpiredError = exports.noCircleFoundError = exports.noCircleMemberError = exports.circleMemberExistsError = exports.circleMemberError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -39,9 +39,9 @@ exports.deleteDevice = 'device deleted successfully';
 exports.fetchUsersSuccess = 'Fetched Users Successfully';
 exports.createSessionTimeSuccess = 'created sessionTime Successfully';
 exports.endSessionTimeSuccess = 'session ended successfully';
-exports.getTotalSessionTimeSuccess = 'fetched total time-sessions successfully';
+exports.getTotalSessionTimeSuccess = 'total session time fetched successfully';
 exports.allActiceUsersSuccess = 'fetched all active users successfully';
-exports.activeUsersCountSuccess = 'fetched Actice users count successfully';
+exports.activeUsersCountSuccess = 'fetched active users count successfully';
 exports.mobileUpdateSuccess = 'Mobile Number Updated Successfully';
 exports.fetchUserSuccess = 'Fetched User Successfully';
 exports.updateLastSeenSuccess = 'Updated Last Seen Successfully';
@@ -49,4 +49,6 @@ exports.fetchCircleSuccess = 'Fetched Circle Successfully';
 exports.fetchCirclesSuccess = 'Fetched Circles Successfully';
 exports.addCircleMemberSuccess = 'Added Circle Member Successfully';
 exports.updatePasswordSuccess = 'Updated Password Successfully';
+exports.currentPasswordIncorrectError = 'Current Password Incorrect';
+exports.updateEmailSuccess = 'Updated Email Successfully';
 //# sourceMappingURL=errorMessages.js.map

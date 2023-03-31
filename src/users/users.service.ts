@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
 import * as argon2 from 'argon2';
-import { passwordDoesNotMatchError } from 'src/constants/errorMessages';
+import { currentPasswordIncorrectError } from 'src/constants/errorMessages';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 
@@ -106,7 +106,7 @@ export class UsersService {
           currentPassword,
         );
 
-        if (!passwordIsMatch) throw new Error(passwordDoesNotMatchError);
+        if (!passwordIsMatch) throw new Error(currentPasswordIncorrectError);
 
         const hashedPassword = await this.authService.hashData(newPassword);
 

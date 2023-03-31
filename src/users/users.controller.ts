@@ -8,13 +8,14 @@ import {
   mobileUpdateSuccess,
   updateLastSeenSuccess,
   updatePasswordSuccess,
+  updateEmailSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 
-@Controller('api/users')
+@Controller('api/user')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
@@ -47,6 +48,19 @@ export class UsersController {
     try {
       const user = await this.userService.updateMobileNumber(userId, userDto);
       return handleSuccess(mobileUpdateSuccess, user);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Post('update-email')
+  async updateEmail(
+    @Body() userDto: UserDto,
+    @GetCurrentUserId() userId: string,
+  ) {
+    try {
+      const user = await this.userService.updateEmail(userId, userDto);
+      return handleSuccess(updateEmailSuccess, user);
     } catch (error) {
       return handleError(error);
     }
@@ -86,7 +100,7 @@ export class UsersController {
     }
   }
 
-  @Get('/count')
+  @Get('count')
   async countActiveUsers() {
     try {
       const activeUsersCount = await this.userService.countActiveUsers();
