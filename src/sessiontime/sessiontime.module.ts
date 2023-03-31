@@ -4,6 +4,6 @@ import { SessiontimeService } from './sessiontime.service';
 
 @Module({
   controllers: [SessiontimeController],
-  providers: [SessiontimeService]
+  providers: [SessiontimeService],
 })
 export class SessiontimeModule {}
