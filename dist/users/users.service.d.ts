@@ -8,8 +8,10 @@ export declare class UsersService {
     constructor(prismaService: PrismaService, authService: AuthService);
     getAllUsers(): Promise<unknown>;
     getUserById(userId: string): Promise<unknown>;
+    getAllActiveUsers(): Promise<unknown>;
     updateMobileNumber(userId: string, userDto: UserDto): Promise<unknown>;
     updateEmail(userId: string, userDto: UserDto): Promise<unknown>;
+    countActiveUsers(): Promise<unknown>;
     updatePassword(userId: string, userDto: UpdateUserDto): Promise<unknown>;
     updateLastSeen(userId: string): Promise<unknown>;
 }

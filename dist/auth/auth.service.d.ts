@@ -5,7 +5,7 @@ export declare class AuthService {
     private prismaService;
     private jwtService;
     constructor(prismaService: PrismaService, jwtService: JwtService);
-    hashData: (data: any) => Promise<any>;
+    hashData: (data: any) => Promise<string>;
     getTokens: (userId: string, email: string) => Promise<tokens | error>;
     updateRefreshTokenHash: (userId: string, refreshToken: string) => Promise<void>;
     userSignup: (authDto: any) => Promise<unknown>;

@@ -39,4 +39,18 @@ export declare class UsersController {
         tokens: any;
         stack: any;
     }>;
+    getAllActiveUsers(): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
+    countActiveUsers(): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
 }

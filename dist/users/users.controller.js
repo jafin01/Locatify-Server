@@ -71,6 +71,24 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async getAllActiveUsers() {
+        try {
+            const activeUsers = await this.userService.getAllActiveUsers();
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.allActiceUsersSuccess, activeUsers);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
+    async countActiveUsers() {
+        try {
+            const activeUsersCount = await this.userService.countActiveUsers();
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.activeUsersCountSuccess, activeUsersCount);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
 };
 __decorate([
     (0, common_1.Get)('get-users'),
@@ -108,6 +126,18 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateLastSeen", null);
+__decorate([
+    (0, common_1.Get)('active-users'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "getAllActiveUsers", null);
+__decorate([
+    (0, common_1.Get)('/count'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "countActiveUsers", null);
 UsersController = __decorate([
     (0, common_1.Controller)('api/users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
