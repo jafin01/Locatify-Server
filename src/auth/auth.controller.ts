@@ -42,7 +42,7 @@ export class AuthController {
   async userSignin(@Body() loginDto: LoginDto) {
     try {
       const data: any = await this.authService.userSignin(loginDto);
-      return handleSuccess(loginSuccess, data.user, data.tokens);
+      return handleSuccess(loginSuccess, data.userDetails, data.tokens);
     } catch (error) {
       return handleError(error);
     }

@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { CircleService } from 'src/circle/circle.service';
-import { noCircleError } from 'src/constants/errorMessages';
+import {
+  noCircleFoundError,
+  noPlaceFoundError,
+} from 'src/constants/errorMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -8,7 +11,7 @@ export class PlacesService {
   constructor(
     private prismaService: PrismaService,
     private circleServices: CircleService,
-  ) { }
+  ) {}
 
   createPlace = (placesDto, circleId, userId) => {
     const { name, latitude, longitude } = placesDto;
@@ -41,6 +44,8 @@ export class PlacesService {
             id: placeId,
           },
         });
+
+        if (!place) throw new Error(noPlaceFoundError);
         resolve(place);
       } catch (error) {
         reject(error);
@@ -53,13 +58,14 @@ export class PlacesService {
       try {
         const circle = await this.circleServices.getCircleDetails(circleId);
 
-        if (!circle) throw new Error(noCircleError);
+        if (!circle) throw new Error(noCircleFoundError);
 
         const places = await this.prismaService.places.findMany({
           where: {
             circleId,
           },
         });
+
         resolve(places);
         return places;
       } catch (error) {
@@ -72,8 +78,9 @@ export class PlacesService {
     return new Promise(async (resolve, reject) => {
       try {
         const circle = await this.circleServices.getCircleDetails(circleId);
-        console.log(circle);
-        if (!circle) throw new Error(noCircleError);
+
+        if (!circle) throw new Error(noCircleFoundError);
+
         const place = await this.prismaService.places.delete({
           where: {
             id,
@@ -94,10 +101,8 @@ export class PlacesService {
   ) => {
     return new Promise(async (resolve, reject) => {
       const { name, latitude, longitude } = placeDto;
-      try {
-        // const circle = await this.circleServices.getCircleDetails(circleId);
-        // if (!circle) throw new Error(noCircleError);
 
+      try {
         const place = await this.prismaService.places.update({
           where: { id: placeId },
           data: {

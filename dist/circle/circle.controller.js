@@ -45,6 +45,17 @@ let CircleController = class CircleController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async addCircleMember(params, circleMembersDto) {
+        const { circleId, userId } = params;
+        const role = circleMembersDto.role || 'member';
+        try {
+            const addedMember = await this.circleService.addCircleMember(circleId, userId, role);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.addCircleMemberSuccess, addedMember);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
     async getAllCircleMembers(params) {
         try {
             const circleMembers = await this.circleService.getAllCircleMembers(params.circleId);
@@ -66,7 +77,7 @@ let CircleController = class CircleController {
     async getCircleData(params) {
         try {
             const circleData = await this.circleService.getCircleDetails(params.circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -75,7 +86,7 @@ let CircleController = class CircleController {
     async getCircleDataByCode(params) {
         try {
             const circleData = await this.circleService.getCircleDetailsByCode(params.circleCode);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -94,7 +105,7 @@ let CircleController = class CircleController {
     async getAllCircles(userId) {
         try {
             const circles = await this.circleService.getAllCircles(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getCircleDataSuccess, circles);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCirclesSuccess, circles);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -119,6 +130,14 @@ __decorate([
         circleMembers_dto_1.CircleMembersDto, String]),
     __metadata("design:returntype", Promise)
 ], CircleController.prototype, "joinCircle", null);
+__decorate([
+    (0, common_1.Post)('add-member/:circleId/:userId'),
+    __param(0, (0, common_1.Param)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, circleMembers_dto_1.CircleMembersDto]),
+    __metadata("design:returntype", Promise)
+], CircleController.prototype, "addCircleMember", null);
 __decorate([
     (0, common_1.Get)('get-members/:circleId'),
     __param(0, (0, common_1.Param)()),

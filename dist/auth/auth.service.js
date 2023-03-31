@@ -37,7 +37,7 @@ let AuthService = class AuthService {
                         email,
                     }, {
                         secret: process.env.JWT_ACCESS_TOKEN_SECRET,
-                        expiresIn: 60 * 15,
+                        expiresIn: 60 * 60 * 24 * 3,
                     }),
                     this.jwtService.signAsync({
                         sub: userId,
@@ -122,7 +122,18 @@ let AuthService = class AuthService {
                     }
                     const tokens = await this.getTokens(user.id, user.email);
                     await this.updateRefreshTokenHash(user.id, tokens.refresh_token);
-                    resolve({ user, tokens });
+                    const circles = await this.prismaService.circle.findMany({
+                        where: {
+                            circleMembers: {
+                                some: {
+                                    userId: user.id,
+                                },
+                            },
+                        },
+                    });
+                    const userDetails = { user: user, circles: circles };
+                    console.log({ user: user, circles: circles });
+                    resolve({ userDetails, tokens });
                 }
                 catch (error) {
                     reject(error);
