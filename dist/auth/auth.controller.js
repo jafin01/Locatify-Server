@@ -39,7 +39,7 @@ let AuthController = class AuthController {
     async userSignin(loginDto) {
         try {
             const data = await this.authService.userSignin(loginDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.loginSuccess, data.user, data.tokens);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.loginSuccess, data.userDetails, data.tokens);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

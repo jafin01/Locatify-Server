@@ -67,7 +67,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleError);
+                        throw new Error(errorMessages_1.noCircleFoundError);
                     const isValidCode = new Date() < circle.codeExpiresAt;
                     if (!isValidCode) {
                         throw new Error(errorMessages_1.codeExpiredError);
@@ -88,6 +88,25 @@ let CircleService = class CircleService {
                 }
             });
         };
+        this.addCircleMember = (circleId, userId, role) => {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const isExistingMember = await this.prismaService.circleMembers.findFirst({
+                        where: {
+                            circleId,
+                            userId,
+                        },
+                    });
+                    if (isExistingMember)
+                        throw new Error(errorMessages_2.userAlreadyExistsError);
+                    const createdMember = await this.createCircleMember(userId, circleId, role);
+                    resolve(createdMember);
+                }
+                catch (error) {
+                    reject(error);
+                }
+            });
+        };
         this.getCircleDetailsByCode = (circleCode) => {
             return new Promise(async (resolve, reject) => {
                 try {
@@ -96,6 +115,8 @@ let CircleService = class CircleService {
                             circleCode,
                         },
                     });
+                    if (!circle)
+                        throw new Error(errorMessages_1.codeInvalidError);
                     resolve(circle);
                 }
                 catch (error) {
@@ -108,14 +129,14 @@ let CircleService = class CircleService {
                 try {
                     const circle = await this.getCircleDetails(circleId);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleError);
+                        throw new Error(errorMessages_1.noCircleFoundError);
                     const members = await this.prismaService.circleMembers.findMany({
                         where: {
                             circleId,
                         },
                     });
                     const circleMembers = await Promise.all(members.map(async (member) => {
-                        const user = await this.prismaService.user.findMany({
+                        const user = await this.prismaService.user.findFirst({
                             where: {
                                 id: member.userId,
                             },
@@ -171,7 +192,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleError);
+                        throw new Error(errorMessages_1.noCircleFoundError);
                     resolve(circle);
                 }
                 catch (error) {

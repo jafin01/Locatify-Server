@@ -19,6 +19,13 @@ export declare class CircleController {
         tokens: any;
         stack: any;
     }>;
+    addCircleMember(params: any, circleMembersDto: CircleMembersDto): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
     getAllCircleMembers(params: any): Promise<{
         success: boolean;
         message: any;
