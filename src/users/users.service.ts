@@ -36,6 +36,15 @@ export class UsersService {
     });
   }
 
+  getAllActiveUsers() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const activeUsers = await this.prismaService.user.findMany({
+          where: { isActive: true },
+        });
+
+        resolve(activeUsers);
+        return activeUsers;
   updateMobileNumber(userId: string, userDto: UserDto) {
     return new Promise((resolve, reject) => {
       const { mobileNo } = userDto;
@@ -66,6 +75,18 @@ export class UsersService {
     });
   }
 
+  countActiveUsers() {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const activeUsersCount = await this.prismaService.user.count({
+          where: { isActive: true },
+        });
+
+        resolve(activeUsersCount);
+      } catch (error) {
+        reject(error);
+      }
+    })
   updatePassword(userId: string, userDto: UpdateUserDto) {
     return new Promise(async (resolve, reject) => {
       const { currentPassword, newPassword } = userDto;

@@ -24,6 +24,7 @@ model User {
   location           Location[]
   places             Places[]
   sessionTime       SessionTime[]
+  isActive          Boolean @default(true)
 
   @@map("users")
 }

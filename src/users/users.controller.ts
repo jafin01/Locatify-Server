@@ -1,3 +1,8 @@
+import { Controller, Get, Param } from '@nestjs/common';
+import {
+  allActiceUsersSuccess,
+  fetchUsersSuccess,
+  activeUsersCountSuccess,
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
@@ -69,6 +74,26 @@ export class UsersController {
     try {
       const user = await this.userService.updateLastSeen(userId);
       return handleSuccess(updateLastSeenSuccess, user);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('active-users')
+  async getAllActiveUsers() {
+    try {
+      const activeUsers = await this.userService.getAllActiveUsers();
+      return handleSuccess(allActiceUsersSuccess, activeUsers);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('/count')
+  async countActiveUsers() {
+    try {
+      const activeUsersCount = await this.userService.countActiveUsers();
+      return handleSuccess(activeUsersCountSuccess, activeUsersCount);
     } catch (error) {
       return handleError(error);
     }
