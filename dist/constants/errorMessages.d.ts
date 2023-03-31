@@ -35,3 +35,5 @@ export declare const fetchUsersSuccess = "Fetched Users Successfully";
 export declare const createSessionTimeSuccess = "created sessionTime Successfully";
 export declare const endSessionTimeSuccess = "session ended successfully";
 export declare const getTotalSessionTimeSuccess = "fetched total time-sessions successfully";
+export declare const allActiceUsersSuccess = "fetched all active users successfully";
+export declare const activeUsersCountSuccess = "fetched Actice users count successfully";

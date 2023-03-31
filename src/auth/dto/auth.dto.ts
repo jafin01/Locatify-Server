@@ -27,4 +27,5 @@ export class AuthDto {
   password: string;
 
   hashedRefreshToken: string;
+  isActive: boolean;
 }

@@ -1,5 +1,9 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { fetchUsersSuccess } from 'src/constants/errorMessages';
+import {
+  allActiceUsersSuccess,
+  fetchUsersSuccess,
+  activeUsersCountSuccess,
+} from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UsersService } from './users.service';
 
@@ -23,6 +27,26 @@ export class UsersController {
     try {
       const user = await this.userService.getUserById(userId);
       return handleSuccess(fetchUsersSuccess, user);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('active-users')
+  async getAllActiveUsers() {
+    try {
+      const activeUsers = await this.userService.getAllActiveUsers();
+      return handleSuccess(allActiceUsersSuccess, activeUsers);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Get('/count')
+  async countActiveUsers() {
+    try {
+      const activeUsersCount = await this.userService.countActiveUsers();
+      return handleSuccess(activeUsersCountSuccess, activeUsersCount);
     } catch (error) {
       return handleError(error);
     }

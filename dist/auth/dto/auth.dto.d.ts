@@ -5,4 +5,5 @@ export declare class AuthDto {
     email: string;
     password: string;
     hashedRefreshToken: string;
+    isActive: boolean;
 }

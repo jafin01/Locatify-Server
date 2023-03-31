@@ -37,3 +37,6 @@ export const createSessionTimeSuccess = 'created sessionTime Successfully';
 export const endSessionTimeSuccess = 'session ended successfully';
 export const getTotalSessionTimeSuccess =
   'fetched total time-sessions successfully';
+export const allActiceUsersSuccess = 'fetched all active users successfully';
+export const activeUsersCountSuccess =
+  'fetched Actice users count successfully';
