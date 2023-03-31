@@ -1,13 +1,10 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
+  fetchUserSuccess,
   allActiceUsersSuccess,
   fetchUsersSuccess,
   activeUsersCountSuccess,
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
-import {
-  fetchUsersSuccess,
-  fetchUserSuccess,
   mobileUpdateSuccess,
   updateLastSeenSuccess,
   updatePasswordSuccess,
