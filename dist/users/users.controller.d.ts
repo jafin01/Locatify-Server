@@ -25,6 +25,13 @@ export declare class UsersController {
         tokens: any;
         stack: any;
     }>;
+    updateEmail(userDto: UserDto, userId: string): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
     updatePassword(userDto: UpdateUserDto, userId: string): Promise<{
         success: boolean;
         message: any;

@@ -108,7 +108,7 @@ let UsersService = class UsersService {
                 const user = await this.getUserById(userId);
                 const passwordIsMatch = await argon2.verify(user.hashedPassword, currentPassword);
                 if (!passwordIsMatch)
-                    throw new Error(errorMessages_1.passwordDoesNotMatchError);
+                    throw new Error(errorMessages_1.currentPasswordIncorrectError);
                 const hashedPassword = await this.authService.hashData(newPassword);
                 const updatedUser = this.prismaService.user.update({
                     where: { id: userId },

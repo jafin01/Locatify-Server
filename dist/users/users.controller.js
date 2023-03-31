@@ -52,6 +52,15 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async updateEmail(userDto, userId) {
+        try {
+            const user = await this.userService.updateEmail(userId, userDto);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateEmailSuccess, user);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
     async updatePassword(userDto, userId) {
         try {
             const user = await this.userService.updatePassword(userId, userDto);
@@ -112,6 +121,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateMobileNumber", null);
 __decorate([
+    (0, common_1.Post)('update-email'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_dto_1.UserDto, String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateEmail", null);
+__decorate([
     (0, common_1.Post)('update-password'),
     __param(0, (0, common_1.Body)()),
     __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
@@ -133,13 +150,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllActiveUsers", null);
 __decorate([
-    (0, common_1.Get)('/count'),
+    (0, common_1.Get)('count'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "countActiveUsers", null);
 UsersController = __decorate([
-    (0, common_1.Controller)('api/users'),
+    (0, common_1.Controller)('api/user'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
 exports.UsersController = UsersController;

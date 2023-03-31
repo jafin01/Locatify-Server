@@ -38,10 +38,10 @@ export const fetchUsersSuccess = 'Fetched Users Successfully';
 export const createSessionTimeSuccess = 'created sessionTime Successfully';
 export const endSessionTimeSuccess = 'session ended successfully';
 export const getTotalSessionTimeSuccess =
-  'fetched total time-sessions successfully';
+  'total session time fetched successfully';
 export const allActiceUsersSuccess = 'fetched all active users successfully';
 export const activeUsersCountSuccess =
-  'fetched Actice users count successfully';
+  'fetched active users count successfully';
 export const mobileUpdateSuccess = 'Mobile Number Updated Successfully';
 export const fetchUserSuccess = 'Fetched User Successfully';
 export const updateLastSeenSuccess = 'Updated Last Seen Successfully';
@@ -49,3 +49,5 @@ export const fetchCircleSuccess = 'Fetched Circle Successfully';
 export const fetchCirclesSuccess = 'Fetched Circles Successfully';
 export const addCircleMemberSuccess = 'Added Circle Member Successfully';
 export const updatePasswordSuccess = 'Updated Password Successfully';
+export const currentPasswordIncorrectError = 'Current Password Incorrect';
+export const updateEmailSuccess = 'Updated Email Successfully';
