@@ -1,3 +1,4 @@
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 export declare class UsersController {
@@ -18,6 +19,13 @@ export declare class UsersController {
         stack: any;
     }>;
     updateMobileNumber(userDto: UserDto, userId: string): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
+    updatePassword(userDto: UpdateUserDto, userId: string): Promise<{
         success: boolean;
         message: any;
         data: any;

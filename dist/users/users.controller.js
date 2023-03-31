@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
 const errorMessages_1 = require("../constants/errorMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
+const update_user_dto_1 = require("./dto/update-user.dto");
 const user_dto_1 = require("./dto/user.dto");
 const users_service_1 = require("./users.service");
 let UsersController = class UsersController {
@@ -46,6 +47,15 @@ let UsersController = class UsersController {
         try {
             const user = await this.userService.updateMobileNumber(userId, userDto);
             return (0, returnHelpers_1.handleSuccess)(errorMessages_1.mobileUpdateSuccess, user);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
+    async updatePassword(userDto, userId) {
+        try {
+            const user = await this.userService.updatePassword(userId, userDto);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updatePasswordSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -83,6 +93,14 @@ __decorate([
     __metadata("design:paramtypes", [user_dto_1.UserDto, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateMobileNumber", null);
+__decorate([
+    (0, common_1.Post)('update-password'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto, String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updatePassword", null);
 __decorate([
     (0, common_1.Post)('update-last-seen/:userId'),
     __param(0, (0, common_1.Param)()),

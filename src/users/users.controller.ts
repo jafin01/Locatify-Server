@@ -5,8 +5,10 @@ import {
   fetchUserSuccess,
   mobileUpdateSuccess,
   updateLastSeenSuccess,
+  updatePasswordSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 
@@ -43,6 +45,19 @@ export class UsersController {
     try {
       const user = await this.userService.updateMobileNumber(userId, userDto);
       return handleSuccess(mobileUpdateSuccess, user);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Post('update-password')
+  async updatePassword(
+    @Body() userDto: UpdateUserDto,
+    @GetCurrentUserId() userId: string,
+  ) {
+    try {
+      const user = await this.userService.updatePassword(userId, userDto);
+      return handleSuccess(updatePasswordSuccess, user);
     } catch (error) {
       return handleError(error);
     }
