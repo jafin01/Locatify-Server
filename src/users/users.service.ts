@@ -12,6 +12,7 @@ export class UsersService {
     private prismaService: PrismaService,
     private authService: AuthService,
   ) {}
+  
   getAllUsers() {
     return new Promise((resolve, reject) => {
       try {
@@ -45,6 +46,7 @@ export class UsersService {
 
         resolve(activeUsers);
         return activeUsers;
+        
   updateMobileNumber(userId: string, userDto: UserDto) {
     return new Promise((resolve, reject) => {
       const { mobileNo } = userDto;
@@ -87,6 +89,7 @@ export class UsersService {
         reject(error);
       }
     })
+    
   updatePassword(userId: string, userDto: UpdateUserDto) {
     return new Promise(async (resolve, reject) => {
       const { currentPassword, newPassword } = userDto;
