@@ -23,10 +23,10 @@ export class LocationsController {
     }
   }
 
-  @Get('get-one/:circleId')
+  @Get('get-one/:circleId/:userId')
   async getLocation(
     @Param('circleId') circleId: string,
-    @GetCurrentUserId() userId: string,
+    @Param('userId') userId: string,
   ) {
     try {
       const location = await this.locationsService.getLocationByUser(

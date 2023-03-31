@@ -77,9 +77,9 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], LocationsController.prototype, "getLocations", null);
 __decorate([
-    (0, common_1.Get)('get-one/:circleId'),
+    (0, common_1.Get)('get-one/:circleId/:userId'),
     __param(0, (0, common_1.Param)('circleId')),
-    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __param(1, (0, common_1.Param)('userId')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
