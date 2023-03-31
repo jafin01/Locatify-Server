@@ -62,7 +62,9 @@ export class LocationsService {
 
   createLocation(locationDto: any, userId: string, circleId: string) {
     return new Promise(async (resolve, reject) => {
-      const { latitude, longitude } = locationDto;
+      const latitude = locationDto.latitude || 0.0;
+      const longitude = locationDto.longitude || 0.0;
+
       try {
         const location = await this.prismaService.location.create({
           data: {
@@ -80,9 +82,9 @@ export class LocationsService {
     });
   }
 
-  updateLocation(locationDto: any, userId: string) {
+  updateLocation(locationDto: any, circleId: string, userId: string) {
     return new Promise(async (resolve, reject) => {
-      const { circleId, latitude, longitude } = locationDto;
+      const { latitude, longitude } = locationDto;
       try {
         const locationToUpdate: any = await this.getLocationByUser(
           userId,

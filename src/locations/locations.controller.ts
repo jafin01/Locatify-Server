@@ -68,14 +68,16 @@ export class LocationsController {
     }
   }
 
-  @Post('update/')
+  @Post('update/:circleId')
   async updateLocation(
     @Body() locationDto: LocationDto,
+    @Param('circleId') circleId: string,
     @GetCurrentUserId() userId: string,
   ) {
     try {
       const location = await this.locationsService.updateLocation(
         locationDto,
+        circleId,
         userId,
       );
       return handleSuccess(updateLocationSuccess, location);
