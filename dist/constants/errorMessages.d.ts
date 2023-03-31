@@ -40,3 +40,4 @@ export declare const updateLastSeenSuccess = "Updated Last Seen Successfully";
 export declare const fetchCircleSuccess = "Fetched Circle Successfully";
 export declare const fetchCirclesSuccess = "Fetched Circles Successfully";
 export declare const addCircleMemberSuccess = "Added Circle Member Successfully";
+export declare const updatePasswordSuccess = "Updated Password Successfully";

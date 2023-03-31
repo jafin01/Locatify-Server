@@ -41,3 +41,4 @@ export const updateLastSeenSuccess = 'Updated Last Seen Successfully';
 export const fetchCircleSuccess = 'Fetched Circle Successfully';
 export const fetchCirclesSuccess = 'Fetched Circles Successfully';
 export const addCircleMemberSuccess = 'Added Circle Member Successfully';
+export const updatePasswordSuccess = 'Updated Password Successfully';
