@@ -15,7 +15,7 @@ let DevicesModule = class DevicesModule {
 DevicesModule = __decorate([
     (0, common_1.Module)({
         controllers: [devices_controller_1.DevicesController],
-        providers: [devices_service_1.DevicesService]
+        providers: [devices_service_1.DevicesService],
     })
 ], DevicesModule);
 exports.DevicesModule = DevicesModule;
