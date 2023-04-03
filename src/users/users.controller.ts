@@ -4,7 +4,6 @@ import {
   fetchUserSuccess,
   allActiceUsersSuccess,
   fetchUsersSuccess,
-  activeUsersCountSuccess,
   mobileUpdateSuccess,
   updateLastSeenSuccess,
   updatePasswordSuccess,
@@ -79,9 +78,8 @@ export class UsersController {
     }
   }
 
-  @Post('update-last-seen/:userId')
-  async updateLastSeen(@Param() params) {
-    const { userId } = params;
+  @Post('update-last-seen')
+  async updateLastSeen(@GetCurrentUserId() userId: string) {
     try {
       const user = await this.userService.updateLastSeen(userId);
       return handleSuccess(updateLastSeenSuccess, user);
@@ -90,7 +88,7 @@ export class UsersController {
     }
   }
 
-  @Get('active-users')
+  @Get('get-active-users')
   async getAllActiveUsers() {
     try {
       const activeUsers = await this.userService.getAllActiveUsers();
@@ -100,13 +98,13 @@ export class UsersController {
     }
   }
 
-  @Get('count')
-  async countActiveUsers() {
-    try {
-      const activeUsersCount = await this.userService.countActiveUsers();
-      return handleSuccess(activeUsersCountSuccess, activeUsersCount);
-    } catch (error) {
-      return handleError(error);
-    }
-  }
+  // @Get('count')
+  // async countActiveUsers() {
+  //   try {
+  //     const activeUsersCount = await this.userService.countActiveUsers();
+  //     return handleSuccess(activeUsersCountSuccess, activeUsersCount);
+  //   } catch (error) {
+  //     return handleError(error);
+  //   }
+  // }
 }

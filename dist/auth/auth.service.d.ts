@@ -1,10 +1,12 @@
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
 import { error, tokens } from 'src/types/tokens.type';
+import { UsersService } from 'src/users/users.service';
 export declare class AuthService {
+    private usersService;
     private prismaService;
     private jwtService;
-    constructor(prismaService: PrismaService, jwtService: JwtService);
+    constructor(usersService: UsersService, prismaService: PrismaService, jwtService: JwtService);
     hashData: (data: any) => Promise<string>;
     getTokens: (userId: string, email: string) => Promise<tokens | error>;
     updateRefreshTokenHash: (userId: string, refreshToken: string) => Promise<void>;

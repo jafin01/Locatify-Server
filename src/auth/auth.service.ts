@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as argon2 from 'argon2';
 import {
@@ -9,10 +9,13 @@ import {
 } from 'src/constants/errorMessages';
 import { JwtService } from '@nestjs/jwt';
 import { error, tokens } from 'src/types/tokens.type';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class AuthService {
   constructor(
+    @Inject(forwardRef(() => UsersService))
+    private usersService: UsersService,
     private prismaService: PrismaService,
     private jwtService: JwtService,
   ) {}
@@ -151,9 +154,11 @@ export class AuthService {
           },
         });
 
-        const userDetails = { user: user, circles: circles };
+        const userDetails: any = { user: user, circles: circles };
 
-        console.log({ user: user, circles: circles });
+        const updatedUser = await this.usersService.updateLastSeen(user.id);
+
+        userDetails.user = updatedUser;
 
         resolve({ userDetails, tokens });
       } catch (error) {

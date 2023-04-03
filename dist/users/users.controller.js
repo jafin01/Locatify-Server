@@ -70,8 +70,7 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
-    async updateLastSeen(params) {
-        const { userId } = params;
+    async updateLastSeen(userId) {
         try {
             const user = await this.userService.updateLastSeen(userId);
             return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateLastSeenSuccess, user);
@@ -84,15 +83,6 @@ let UsersController = class UsersController {
         try {
             const activeUsers = await this.userService.getAllActiveUsers();
             return (0, returnHelpers_1.handleSuccess)(errorMessages_1.allActiceUsersSuccess, activeUsers);
-        }
-        catch (error) {
-            return (0, returnHelpers_1.handleError)(error);
-        }
-    }
-    async countActiveUsers() {
-        try {
-            const activeUsersCount = await this.userService.countActiveUsers();
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.activeUsersCountSuccess, activeUsersCount);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -137,24 +127,18 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updatePassword", null);
 __decorate([
-    (0, common_1.Post)('update-last-seen/:userId'),
-    __param(0, (0, common_1.Param)()),
+    (0, common_1.Post)('update-last-seen'),
+    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updateLastSeen", null);
 __decorate([
-    (0, common_1.Get)('active-users'),
+    (0, common_1.Get)('get-active-users'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllActiveUsers", null);
-__decorate([
-    (0, common_1.Get)('count'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UsersController.prototype, "countActiveUsers", null);
 UsersController = __decorate([
     (0, common_1.Controller)('api/user'),
     __metadata("design:paramtypes", [users_service_1.UsersService])

@@ -14,13 +14,19 @@ const auth_controller_1 = require("./auth.controller");
 const auth_service_1 = require("./auth.service");
 const accessToken_strategy_1 = require("./strategies/accessToken.strategy");
 const refreshToken_strategy_1 = require("./strategies/refreshToken.strategy");
+const users_service_1 = require("../users/users.service");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [(0, common_1.forwardRef)(() => prisma_module_1.PrismaModule), jwt_1.JwtModule.register({})],
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService, accessToken_strategy_1.AccessTokenStrategy, refreshToken_strategy_1.refreshTokenStrategy],
+        providers: [
+            auth_service_1.AuthService,
+            accessToken_strategy_1.AccessTokenStrategy,
+            refreshToken_strategy_1.refreshTokenStrategy,
+            users_service_1.UsersService,
+        ],
     })
 ], AuthModule);
 exports.AuthModule = AuthModule;
