@@ -81,7 +81,7 @@ let AuthService = class AuthService {
         };
         this.userSignup = (authDto) => {
             return new Promise(async (resolve, reject) => {
-                const { mobileNo, firstName, lastName, email, password } = authDto;
+                const { countryCode, mobileNo, firstName, lastName, email, password } = authDto;
                 try {
                     const user = await this.prismaService.user.findUnique({
                         where: { email },
@@ -92,6 +92,7 @@ let AuthService = class AuthService {
                     const hashedPassword = await this.hashData(password);
                     const newUser = await this.prismaService.user.create({
                         data: {
+                            countryCode: countryCode,
                             mobileNo: mobileNo,
                             firstName: firstName,
                             lastName: lastName,

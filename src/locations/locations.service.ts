@@ -17,7 +17,23 @@ export class LocationsService {
 
         if (locations.length === 0) throw new Error(noLocationFoundError);
 
-        resolve(locations);
+        const responseToClient = await Promise.all(
+          locations.map(async (location) => {
+            const { userId } = location;
+            const userData = await this.prismaService.user.findUnique({
+              where: {
+                id: userId,
+              },
+            });
+
+            return {
+              ...location,
+              userData,
+            };
+          }),
+        );
+
+        resolve(responseToClient);
       } catch (error) {
         reject(error);
       }

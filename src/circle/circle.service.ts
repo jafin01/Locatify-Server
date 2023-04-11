@@ -227,7 +227,6 @@ export class CircleService {
     return new Promise(async (resolve, reject) => {
       try {
         const member: any = await this.getCircleMember(userId, circleId);
-        console.log(member);
 
         const updatedMember = await this.prismaService.circleMembers.update({
           where: {
