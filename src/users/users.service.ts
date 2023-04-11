@@ -147,7 +147,7 @@ export class UsersService {
       try {
         const users: any = await this.getAllUsers();
 
-        const updatedUsers = await Promise.all(
+        await Promise.all(
           users.map(async (user) => {
             const { id } = user;
             const { activeStatus }: any = await this.getActiveStatus(id);
@@ -158,8 +158,6 @@ export class UsersService {
             return updatedUser;
           }),
         );
-
-        console.log(updatedUsers);
 
         resolve();
       } catch (error) {

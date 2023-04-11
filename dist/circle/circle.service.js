@@ -204,7 +204,6 @@ let CircleService = class CircleService {
             return new Promise(async (resolve, reject) => {
                 try {
                     const member = await this.getCircleMember(userId, circleId);
-                    console.log(member);
                     const updatedMember = await this.prismaService.circleMembers.update({
                         where: {
                             id: member.id,

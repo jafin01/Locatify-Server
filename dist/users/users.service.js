@@ -146,7 +146,7 @@ let UsersService = class UsersService {
         return new Promise(async (resolve, reject) => {
             try {
                 const users = await this.getAllUsers();
-                const updatedUsers = await Promise.all(users.map(async (user) => {
+                await Promise.all(users.map(async (user) => {
                     const { id } = user;
                     const { activeStatus } = await this.getActiveStatus(id);
                     const updatedUser = await this.prismaService.user.update({
@@ -155,7 +155,6 @@ let UsersService = class UsersService {
                     });
                     return updatedUser;
                 }));
-                console.log(updatedUsers);
                 resolve();
             }
             catch (error) {
