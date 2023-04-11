@@ -48,3 +48,4 @@ export declare const addCircleMemberSuccess = "Added Circle Member Successfully"
 export declare const updatePasswordSuccess = "Updated Password Successfully";
 export declare const currentPasswordIncorrectError = "Current Password Incorrect";
 export declare const updateEmailSuccess = "Updated Email Successfully";
+export declare const uploadedProfilePicSuccess = "Uploaded Profile Picture Successfully";

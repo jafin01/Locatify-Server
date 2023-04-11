@@ -11,11 +11,12 @@ model User {
   id                 String          @id @unique @default(uuid())
   countryCode        String          @default("+91")
   mobileNo           String
-  firstName          String
+  firstName           String
   lastName           String
   email              String          @unique
   hashedPassword     String
   hashedRefreshToken String?
+  profilePicUrl       String?
   createdAt          DateTime        @default(now())
   updatedAt          DateTime        @updatedAt
   lastSeen           DateTime        @default(now())

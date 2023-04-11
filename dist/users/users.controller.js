@@ -70,6 +70,15 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async updateProfilePicture(userId, userDto) {
+        try {
+            const user = await this.userService.uploadProfilePicture(userId, userDto);
+            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.uploadedProfilePicSuccess, user);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
     async updateLastSeen(userId) {
         try {
             const user = await this.userService.updateLastSeen(userId);
@@ -126,6 +135,14 @@ __decorate([
     __metadata("design:paramtypes", [update_user_dto_1.UpdateUserDto, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updatePassword", null);
+__decorate([
+    (0, common_1.Post)('update-profile-picture'),
+    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, user_dto_1.UserDto]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "updateProfilePicture", null);
 __decorate([
     (0, common_1.Post)('update-last-seen'),
     __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),

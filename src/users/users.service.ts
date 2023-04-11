@@ -94,6 +94,21 @@ export class UsersService {
     });
   }
 
+  uploadProfilePicture(userId: string, userDto) {
+    return new Promise((resolve, reject) => {
+      const { profilePicUrl } = userDto;
+      try {
+        const user = this.prismaService.user.update({
+          where: { id: userId },
+          data: { profilePicUrl },
+        });
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   getAllActiveUsers() {
     return new Promise(async (resolve, reject) => {
       try {
