@@ -11,6 +11,7 @@ export declare class UsersService {
     updateMobileNumber(userId: string, userDto: UserDto): Promise<unknown>;
     updateEmail(userId: string, userDto: UserDto): Promise<unknown>;
     updatePassword(userId: string, userDto: UpdateUserDto): Promise<unknown>;
+    uploadProfilePicture(userId: string, userDto: any): Promise<unknown>;
     getAllActiveUsers(): Promise<unknown>;
     countActiveUsers(): Promise<unknown>;
     updateLastSeen(userId: string): Promise<unknown>;

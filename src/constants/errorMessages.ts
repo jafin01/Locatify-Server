@@ -51,3 +51,5 @@ export const addCircleMemberSuccess = 'Added Circle Member Successfully';
 export const updatePasswordSuccess = 'Updated Password Successfully';
 export const currentPasswordIncorrectError = 'Current Password Incorrect';
 export const updateEmailSuccess = 'Updated Email Successfully';
+export const uploadedProfilePicSuccess =
+  'Uploaded Profile Picture Successfully';

@@ -8,6 +8,7 @@ import {
   updateLastSeenSuccess,
   updatePasswordSuccess,
   updateEmailSuccess,
+  uploadedProfilePicSuccess,
 } from 'src/constants/errorMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -73,6 +74,19 @@ export class UsersController {
     try {
       const user = await this.userService.updatePassword(userId, userDto);
       return handleSuccess(updatePasswordSuccess, user);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Post('update-profile-picture')
+  async updateProfilePicture(
+    @GetCurrentUserId() userId: string,
+    @Body() userDto: UserDto,
+  ) {
+    try {
+      const user = await this.userService.uploadProfilePicture(userId, userDto);
+      return handleSuccess(uploadedProfilePicSuccess, user);
     } catch (error) {
       return handleError(error);
     }
