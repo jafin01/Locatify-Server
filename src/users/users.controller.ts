@@ -9,7 +9,7 @@ import {
   updatePasswordSuccess,
   updateEmailSuccess,
   uploadedProfilePicSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';

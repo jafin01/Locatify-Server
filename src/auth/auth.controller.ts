@@ -15,12 +15,11 @@ import {
   logoutSuccess,
   refreshTokenSuccess,
   registerSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { LoginDto } from './dto/login.dto';
-import { UsersService } from 'src/users/users.service';
 
 @Controller('api/auth')
 export class AuthController {

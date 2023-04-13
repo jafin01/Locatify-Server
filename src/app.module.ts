@@ -10,6 +10,7 @@ import { LocationsModule } from './locations/locations.module';
 import { DevicesModule } from './devices/devices.module';
 import { UsersModule } from './users/users.module';
 import { SessiontimeModule } from './sessiontime/sessiontime.module';
+import { MailModule } from './mailer/mail.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { SessiontimeModule } from './sessiontime/sessiontime.module';
     DevicesModule,
     UsersModule,
     SessiontimeModule,
+    MailModule,
   ],
   controllers: [],
   providers: [

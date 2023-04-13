@@ -4,7 +4,7 @@ import {
   createSessionTimeSuccess,
   endSessionTimeSuccess,
   getTotalSessionTimeSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { SessionTimeDto } from './dto/sessionTime.dto';
 import { SessiontimeService } from './sessiontime.service';

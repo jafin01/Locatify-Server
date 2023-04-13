@@ -3,7 +3,7 @@ import { CircleService } from 'src/circle/circle.service';
 import {
   noCircleFoundError,
   noPlaceFoundError,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

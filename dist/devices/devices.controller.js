@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DevicesController = void 0;
 const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const devices_service_1 = require("./devices.service");
 const devices_dto_1 = require("./dto/devices.dto");
@@ -26,7 +26,7 @@ let DevicesController = class DevicesController {
     async createDevice(deviceDto, userId) {
         try {
             const device = await this.deviceServices.createDevice(deviceDto, userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.createdDevice, device);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.createdDevice, device);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -35,7 +35,7 @@ let DevicesController = class DevicesController {
     async getDeviceById(params) {
         try {
             const device = await this.deviceServices.getDeviceById(params.deviceId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getDeviceById, device);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.getDeviceById, device);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -44,7 +44,7 @@ let DevicesController = class DevicesController {
     async getAllDevices(userId) {
         try {
             const devices = await this.deviceServices.getAllDevices(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getDevices, devices);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.getDevices, devices);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -53,7 +53,7 @@ let DevicesController = class DevicesController {
     async deleteDevice(params) {
         try {
             const device = await this.deviceServices.deleteDevice(params.deviceId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.deleteDevice, device);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.deleteDevice, device);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

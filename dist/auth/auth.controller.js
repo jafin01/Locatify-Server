@@ -18,7 +18,7 @@ const get_current_user_id_decorator_1 = require("../common/decorator/get-current
 const get_current_user_decorator_1 = require("../common/decorator/get-current-user.decorator");
 const public_decorator_1 = require("../common/decorator/public.decorator");
 const refreshToken_guard_1 = require("../common/guards/refreshToken.guard");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const auth_service_1 = require("./auth.service");
 const auth_dto_1 = require("./dto/auth.dto");
@@ -30,7 +30,7 @@ let AuthController = class AuthController {
     async userSignup(authDto) {
         try {
             const data = await this.authService.userSignup(authDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.registerSuccess, data.newUser, data.tokens);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.registerSuccess, data.newUser, data.tokens);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -39,7 +39,7 @@ let AuthController = class AuthController {
     async userSignin(loginDto) {
         try {
             const data = await this.authService.userSignin(loginDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.loginSuccess, data.userDetails, data.tokens);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.loginSuccess, data.userDetails, data.tokens);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -48,7 +48,7 @@ let AuthController = class AuthController {
     async userLogout(userId) {
         try {
             await this.authService.userLogout(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.logoutSuccess);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.logoutSuccess);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -57,7 +57,7 @@ let AuthController = class AuthController {
     async refreshTokens(userId, refreshToken) {
         try {
             const response = await this.authService.refreshTokens(userId, refreshToken);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.refreshTokenSuccess, response.user, response.tokens);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.refreshTokenSuccess, response.user, response.tokens);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

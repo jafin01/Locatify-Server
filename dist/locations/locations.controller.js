@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocationsController = void 0;
 const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const location_dto_1 = require("./dto/location.dto");
 const locations_service_1 = require("./locations.service");
@@ -26,7 +26,7 @@ let LocationsController = class LocationsController {
     async getLocations(circleId) {
         try {
             const locations = await this.locationsService.getLocations(circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchLocationSuccess, locations);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchLocationSuccess, locations);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -35,7 +35,7 @@ let LocationsController = class LocationsController {
     async getLocation(circleId, userId) {
         try {
             const location = await this.locationsService.getLocationByUser(userId, circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchLocationSuccess, location);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchLocationSuccess, location);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -44,7 +44,7 @@ let LocationsController = class LocationsController {
     async getLocationById(locationId) {
         try {
             const location = await this.locationsService.getLocationById(locationId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchLocationSuccess, location);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchLocationSuccess, location);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -53,7 +53,7 @@ let LocationsController = class LocationsController {
     async createLocation(locationDto, circleId, userId) {
         try {
             const location = await this.locationsService.createLocation(locationDto, userId, circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.createdLocationSuccess, location);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.createdLocationSuccess, location);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -62,7 +62,7 @@ let LocationsController = class LocationsController {
     async updateLocation(locationDto, circleId, userId) {
         try {
             const location = await this.locationsService.updateLocation(locationDto, circleId, userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateLocationSuccess, location);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updateLocationSuccess, location);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

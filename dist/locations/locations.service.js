@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LocationsService = void 0;
 const common_1 = require("@nestjs/common");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const prisma_service_1 = require("../prisma/prisma.service");
 let LocationsService = class LocationsService {
     constructor(prismaService) {
@@ -26,7 +26,7 @@ let LocationsService = class LocationsService {
                     },
                 });
                 if (locations.length === 0)
-                    throw new Error(errorMessages_1.noLocationFoundError);
+                    throw new Error(responseMessages_1.noLocationFoundError);
                 const responseToClient = await Promise.all(locations.map(async (location) => {
                     const { userId } = location;
                     const userData = await this.prismaService.user.findUnique({
@@ -52,7 +52,7 @@ let LocationsService = class LocationsService {
                     },
                 });
                 if (!location)
-                    throw new Error(errorMessages_1.noLocationFoundError);
+                    throw new Error(responseMessages_1.noLocationFoundError);
                 resolve(location);
             }
             catch (error) {
@@ -69,7 +69,7 @@ let LocationsService = class LocationsService {
                     },
                 });
                 if (!location)
-                    throw new Error(errorMessages_1.noLocationFoundError);
+                    throw new Error(responseMessages_1.noLocationFoundError);
                 resolve(location);
             }
             catch (error) {

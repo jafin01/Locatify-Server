@@ -2,7 +2,7 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
 import * as argon2 from 'argon2';
-import { currentPasswordIncorrectError } from 'src/constants/errorMessages';
+import { currentPasswordIncorrectError } from 'src/constants/responseMessages';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ActiveStatus } from 'src/types/users.type';
@@ -20,6 +20,19 @@ export class UsersService {
       try {
         const users = this.prismaService.user.findMany();
         resolve(users);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  getUserByEmail(email: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        const user = this.prismaService.user.findUnique({
+          where: { email },
+        });
+        resolve(user);
       } catch (error) {
         reject(error);
       }

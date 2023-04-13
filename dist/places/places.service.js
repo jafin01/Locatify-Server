@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlacesService = void 0;
 const common_1 = require("@nestjs/common");
 const circle_service_1 = require("../circle/circle.service");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const prisma_service_1 = require("../prisma/prisma.service");
 let PlacesService = class PlacesService {
     constructor(prismaService, circleServices) {
@@ -48,7 +48,7 @@ let PlacesService = class PlacesService {
                         },
                     });
                     if (!place)
-                        throw new Error(errorMessages_1.noPlaceFoundError);
+                        throw new Error(responseMessages_1.noPlaceFoundError);
                     resolve(place);
                 }
                 catch (error) {
@@ -61,7 +61,7 @@ let PlacesService = class PlacesService {
                 try {
                     const circle = await this.circleServices.getCircleDetails(circleId);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleFoundError);
+                        throw new Error(responseMessages_1.noCircleFoundError);
                     const places = await this.prismaService.places.findMany({
                         where: {
                             circleId,
@@ -80,7 +80,7 @@ let PlacesService = class PlacesService {
                 try {
                     const circle = await this.circleServices.getCircleDetails(circleId);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleFoundError);
+                        throw new Error(responseMessages_1.noCircleFoundError);
                     const place = await this.prismaService.places.delete({
                         where: {
                             id,

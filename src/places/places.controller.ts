@@ -14,7 +14,7 @@ import {
   getPlacesInCircle,
   placeCreateSuccess,
   updatedPlace,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { PlacesDto } from './dto/places.dto';
 import { PlacesService } from './places.service';

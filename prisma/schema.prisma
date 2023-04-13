@@ -28,6 +28,8 @@ model User {
   sessionTime       SessionTime[]
   isActive          Boolean @default(true)
   activeStatus    String @default("Online")
+  otp              String?
+  otpExpiresAt     DateTime?
 
   @@map("users")
 }

@@ -5,7 +5,7 @@ import {
   deleteDevice,
   getDeviceById,
   getDevices,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { DevicesService } from './devices.service';
 import { DevicesDto } from './dto/devices.dto';

@@ -12,6 +12,11 @@ export const codeInvalidError = 'Code Invalid';
 export const noPlaceFoundError = 'No Place Found';
 export const noLocationFoundError = 'No Location Found';
 export const passwordDoesNotMatchError = 'Password Does Not Match';
+export const currentPasswordIncorrectError = 'Current Password Incorrect';
+export const invalidEmailError = 'No user found with this email';
+export const invalidUserIdError = 'Invalid User Id';
+export const invalidOtpError = 'Invalid OTP';
+export const otpExpiredError = 'OTP Expired';
 
 export const logoutSuccess = 'Logout Successfull';
 export const loginSuccess = 'Login Success';
@@ -49,7 +54,8 @@ export const fetchCircleSuccess = 'Fetched Circle Successfully';
 export const fetchCirclesSuccess = 'Fetched Circles Successfully';
 export const addCircleMemberSuccess = 'Added Circle Member Successfully';
 export const updatePasswordSuccess = 'Updated Password Successfully';
-export const currentPasswordIncorrectError = 'Current Password Incorrect';
 export const updateEmailSuccess = 'Updated Email Successfully';
 export const uploadedProfilePicSuccess =
   'Uploaded Profile Picture Successfully';
+export const OTPSentSuccess = 'OTP Sent to Mail Successfully';
+export const passwordResetSuccess = 'Password Reset Successfully';
