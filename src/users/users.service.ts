@@ -26,6 +26,19 @@ export class UsersService {
     });
   }
 
+  getUserByEmail(email: string) {
+    return new Promise((resolve, reject) => {
+      try {
+        const user = this.prismaService.user.findUnique({
+          where: { email },
+        });
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
   getUserById(userId: string) {
     return new Promise((resolve, reject) => {
       try {

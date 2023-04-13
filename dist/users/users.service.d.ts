@@ -7,6 +7,7 @@ export declare class UsersService {
     private prismaService;
     constructor(authService: AuthService, prismaService: PrismaService);
     getAllUsers(): Promise<unknown>;
+    getUserByEmail(email: string): Promise<unknown>;
     getUserById(userId: string): Promise<unknown>;
     updateMobileNumber(userId: string, userDto: UserDto): Promise<unknown>;
     updateEmail(userId: string, userDto: UserDto): Promise<unknown>;

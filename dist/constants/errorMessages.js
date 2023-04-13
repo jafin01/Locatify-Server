@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.updateEmailSuccess = exports.currentPasswordIncorrectError = exports.updatePasswordSuccess = exports.addCircleMemberSuccess = exports.fetchCirclesSuccess = exports.fetchCircleSuccess = exports.updateLastSeenSuccess = exports.fetchUserSuccess = exports.mobileUpdateSuccess = exports.activeUsersCountSuccess = exports.allActiceUsersSuccess = exports.getTotalSessionTimeSuccess = exports.endSessionTimeSuccess = exports.createSessionTimeSuccess = exports.fetchUsersSuccess = exports.deleteDevice = exports.getDevices = exports.getDeviceById = exports.createdDevice = exports.updateLocationSuccess = exports.fetchLocationSuccess = exports.createdLocationSuccess = exports.updatedPlace = exports.deletePlace = exports.getPlacesInCircle = exports.getPlaceById = exports.placeCreateSuccess = exports.deleteMemberSuccess = exports.updateMemberRoleSuccess = exports.fetchCircleMembersSuccess = exports.circleJoinedSuccess = exports.circleCreatedSuccess = exports.refreshTokenSuccess = exports.registerSuccess = exports.loginSuccess = exports.logoutSuccess = exports.passwordDoesNotMatchError = exports.noLocationFoundError = exports.noPlaceFoundError = exports.codeInvalidError = exports.codeExpiredError = exports.noCircleFoundError = exports.noCircleMemberError = exports.circleMemberExistsError = exports.circleMemberError = exports.hashError = exports.invalidTokenError = exports.accessDeniedError = exports.userAlreadyExistsError = exports.invalidCredentialsError = void 0;
-exports.uploadedProfilePicSuccess = void 0;
+exports.otpExpiredError = exports.invalidOtpError = exports.invalidUserIdError = exports.passwordResetSuccess = exports.invalidEmailError = exports.OTPSentSuccess = exports.uploadedProfilePicSuccess = void 0;
 exports.invalidCredentialsError = 'Invalid Credentials';
 exports.userAlreadyExistsError = 'User Already Exists';
 exports.accessDeniedError = 'Access Denied';
@@ -53,4 +53,10 @@ exports.updatePasswordSuccess = 'Updated Password Successfully';
 exports.currentPasswordIncorrectError = 'Current Password Incorrect';
 exports.updateEmailSuccess = 'Updated Email Successfully';
 exports.uploadedProfilePicSuccess = 'Uploaded Profile Picture Successfully';
+exports.OTPSentSuccess = 'OTP Sent to Mail Successfully';
+exports.invalidEmailError = 'No user found with this email';
+exports.passwordResetSuccess = 'Password Reset Successfully';
+exports.invalidUserIdError = 'Invalid User Id';
+exports.invalidOtpError = 'Invalid OTP';
+exports.otpExpiredError = 'OTP Expired';
 //# sourceMappingURL=errorMessages.js.map

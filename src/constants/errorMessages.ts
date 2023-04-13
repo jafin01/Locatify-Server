@@ -53,3 +53,9 @@ export const currentPasswordIncorrectError = 'Current Password Incorrect';
 export const updateEmailSuccess = 'Updated Email Successfully';
 export const uploadedProfilePicSuccess =
   'Uploaded Profile Picture Successfully';
+export const OTPSentSuccess = 'OTP Sent to Mail Successfully';
+export const invalidEmailError = 'No user found with this email';
+export const passwordResetSuccess = 'Password Reset Successfully';
+export const invalidUserIdError = 'Invalid User Id';
+export const invalidOtpError = 'Invalid OTP';
+export const otpExpiredError = 'OTP Expired';
