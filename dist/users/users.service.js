@@ -16,7 +16,7 @@ exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const argon2 = require("argon2");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const auth_service_1 = require("../auth/auth.service");
 let UsersService = class UsersService {
     constructor(authService, prismaService) {
@@ -97,7 +97,7 @@ let UsersService = class UsersService {
                 const user = await this.getUserById(userId);
                 const passwordIsMatch = await argon2.verify(user.hashedPassword, currentPassword);
                 if (!passwordIsMatch)
-                    throw new Error(errorMessages_1.currentPasswordIncorrectError);
+                    throw new Error(responseMessages_1.currentPasswordIncorrectError);
                 const hashedPassword = await this.authService.hashData(newPassword);
                 const updatedUser = this.prismaService.user.update({
                     where: { id: userId },

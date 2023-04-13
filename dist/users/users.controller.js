@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const user_dto_1 = require("./dto/user.dto");
@@ -27,7 +27,7 @@ let UsersController = class UsersController {
     async getAllUsers() {
         try {
             const users = await this.userService.getAllUsers();
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchUsersSuccess, users);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchUsersSuccess, users);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -37,7 +37,7 @@ let UsersController = class UsersController {
         const { userId } = params;
         try {
             const user = await this.userService.getUserById(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchUserSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchUserSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -46,7 +46,7 @@ let UsersController = class UsersController {
     async updateMobileNumber(userDto, userId) {
         try {
             const user = await this.userService.updateMobileNumber(userId, userDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.mobileUpdateSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.mobileUpdateSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -55,7 +55,7 @@ let UsersController = class UsersController {
     async updateEmail(userDto, userId) {
         try {
             const user = await this.userService.updateEmail(userId, userDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateEmailSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updateEmailSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -64,7 +64,7 @@ let UsersController = class UsersController {
     async updatePassword(userDto, userId) {
         try {
             const user = await this.userService.updatePassword(userId, userDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updatePasswordSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updatePasswordSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -73,7 +73,7 @@ let UsersController = class UsersController {
     async updateProfilePicture(userId, userDto) {
         try {
             const user = await this.userService.uploadProfilePicture(userId, userDto);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.uploadedProfilePicSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.uploadedProfilePicSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -82,7 +82,7 @@ let UsersController = class UsersController {
     async updateLastSeen(userId) {
         try {
             const user = await this.userService.updateLastSeen(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateLastSeenSuccess, user);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updateLastSeenSuccess, user);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -91,7 +91,7 @@ let UsersController = class UsersController {
     async getAllActiveUsers() {
         try {
             const activeUsers = await this.userService.getAllActiveUsers();
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.allActiceUsersSuccess, activeUsers);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.allActiceUsersSuccess, activeUsers);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

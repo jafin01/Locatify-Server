@@ -9,7 +9,7 @@ import {
   fetchCirclesSuccess,
   fetchCircleSuccess,
   updateMemberRoleSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { CircleService } from './circle.service';
 import { CircleDto } from './dto/circle.dto';

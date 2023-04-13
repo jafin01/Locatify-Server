@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CircleController = void 0;
 const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const circle_service_1 = require("./circle.service");
 const circle_dto_1 = require("./dto/circle.dto");
@@ -28,7 +28,7 @@ let CircleController = class CircleController {
     async createCircle(circleDto, userId) {
         try {
             const circle = await this.circleService.createCircle(circleDto, userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.circleCreatedSuccess, circle);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.circleCreatedSuccess, circle);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -39,7 +39,7 @@ let CircleController = class CircleController {
         const role = circleMembersDto.role || 'member';
         try {
             const circle = await this.circleService.joinCircle(circleCode, userId, role);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.circleJoinedSuccess, circle);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.circleJoinedSuccess, circle);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -50,7 +50,7 @@ let CircleController = class CircleController {
         const role = circleMembersDto.role || 'member';
         try {
             const addedMember = await this.circleService.addCircleMember(circleId, userId, role);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.addCircleMemberSuccess, addedMember);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.addCircleMemberSuccess, addedMember);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -59,7 +59,7 @@ let CircleController = class CircleController {
     async getAllCircleMembers(params) {
         try {
             const circleMembers = await this.circleService.getAllCircleMembers(params.circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleMembersSuccess, circleMembers);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchCircleMembersSuccess, circleMembers);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -68,7 +68,7 @@ let CircleController = class CircleController {
     async deleteCircleMember(params) {
         try {
             const circle = await this.circleService.deleteCircleMember(params.circleId, params.userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.deleteMemberSuccess, circle);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.deleteMemberSuccess, circle);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -77,7 +77,7 @@ let CircleController = class CircleController {
     async getCircleData(params) {
         try {
             const circleData = await this.circleService.getCircleDetails(params.circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -86,7 +86,7 @@ let CircleController = class CircleController {
     async getCircleDataByCode(params) {
         try {
             const circleData = await this.circleService.getCircleDetailsByCode(params.circleCode);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCircleSuccess, circleData);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchCircleSuccess, circleData);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -96,7 +96,7 @@ let CircleController = class CircleController {
         const { role } = circleMembersDto;
         try {
             const updatedMember = await this.circleService.updateCircleRole(userId, params.circleId, role);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updateMemberRoleSuccess, updatedMember);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updateMemberRoleSuccess, updatedMember);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -105,7 +105,7 @@ let CircleController = class CircleController {
     async getAllCircles(userId) {
         try {
             const circles = await this.circleService.getAllCircles(userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.fetchCirclesSuccess, circles);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.fetchCirclesSuccess, circles);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

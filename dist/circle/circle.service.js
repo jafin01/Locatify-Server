@@ -12,9 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CircleService = void 0;
 const common_1 = require("@nestjs/common");
 const circleConstants_1 = require("../constants/circleConstants");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const prisma_service_1 = require("../prisma/prisma.service");
-const errorMessages_2 = require("../constants/errorMessages");
+const responseMessages_2 = require("../constants/responseMessages");
 let CircleService = class CircleService {
     constructor(prismaService) {
         this.prismaService = prismaService;
@@ -67,10 +67,10 @@ let CircleService = class CircleService {
                         },
                     });
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleFoundError);
+                        throw new Error(responseMessages_1.noCircleFoundError);
                     const isValidCode = new Date() < circle.codeExpiresAt;
                     if (!isValidCode) {
-                        throw new Error(errorMessages_1.codeExpiredError);
+                        throw new Error(responseMessages_1.codeExpiredError);
                     }
                     const isExistingMember = await this.prismaService.circleMembers.findFirst({
                         where: {
@@ -79,7 +79,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (isExistingMember)
-                        throw new Error(errorMessages_2.userAlreadyExistsError);
+                        throw new Error(responseMessages_2.userAlreadyExistsError);
                     await this.createCircleMember(userId, circle.id, role);
                     resolve(circle);
                 }
@@ -98,7 +98,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (isExistingMember)
-                        throw new Error(errorMessages_2.userAlreadyExistsError);
+                        throw new Error(responseMessages_2.userAlreadyExistsError);
                     const createdMember = await this.createCircleMember(userId, circleId, role);
                     resolve(createdMember);
                 }
@@ -116,7 +116,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (!circle)
-                        throw new Error(errorMessages_1.codeInvalidError);
+                        throw new Error(responseMessages_1.codeInvalidError);
                     resolve(circle);
                 }
                 catch (error) {
@@ -129,7 +129,7 @@ let CircleService = class CircleService {
                 try {
                     const circle = await this.getCircleDetails(circleId);
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleFoundError);
+                        throw new Error(responseMessages_1.noCircleFoundError);
                     const members = await this.prismaService.circleMembers.findMany({
                         where: {
                             circleId,
@@ -170,7 +170,7 @@ let CircleService = class CircleService {
                 try {
                     const member = await this.getCircleMember(userId, circleId);
                     if (!member)
-                        throw new Error(errorMessages_1.noCircleMemberError);
+                        throw new Error(responseMessages_1.noCircleMemberError);
                     const deletedMember = await this.prismaService.circleMembers.delete({
                         where: {
                             id: member.id,
@@ -192,7 +192,7 @@ let CircleService = class CircleService {
                         },
                     });
                     if (!circle)
-                        throw new Error(errorMessages_1.noCircleFoundError);
+                        throw new Error(responseMessages_1.noCircleFoundError);
                     resolve(circle);
                 }
                 catch (error) {

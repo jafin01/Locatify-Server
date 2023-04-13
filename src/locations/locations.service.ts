@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { noLocationFoundError } from 'src/constants/errorMessages';
+import { noLocationFoundError } from 'src/constants/responseMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

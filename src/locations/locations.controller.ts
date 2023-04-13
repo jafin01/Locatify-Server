@@ -4,7 +4,7 @@ import {
   createdLocationSuccess,
   fetchLocationSuccess,
   updateLocationSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { LocationDto } from './dto/location.dto';
 import { LocationsService } from './locations.service';

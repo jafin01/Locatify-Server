@@ -16,7 +16,7 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const argon2 = require("argon2");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("../users/users.service");
 let AuthService = class AuthService {
@@ -30,7 +30,7 @@ let AuthService = class AuthService {
                 return hash;
             }
             catch (error) {
-                throw new Error(errorMessages_1.hashError);
+                throw new Error(responseMessages_1.hashError);
             }
         };
         this.getTokens = async (userId, email) => {
@@ -87,7 +87,7 @@ let AuthService = class AuthService {
                         where: { email },
                     });
                     if (user) {
-                        throw new Error(errorMessages_1.userAlreadyExistsError);
+                        throw new Error(responseMessages_1.userAlreadyExistsError);
                     }
                     const hashedPassword = await this.hashData(password);
                     const newUser = await this.prismaService.user.create({
@@ -119,11 +119,11 @@ let AuthService = class AuthService {
                         },
                     });
                     if (!user) {
-                        throw new Error(errorMessages_1.invalidCredentialsError);
+                        throw new Error(responseMessages_1.invalidCredentialsError);
                     }
                     const isPassword = await argon2.verify(user.hashedPassword, password);
                     if (!isPassword) {
-                        throw new Error(errorMessages_1.invalidCredentialsError);
+                        throw new Error(responseMessages_1.invalidCredentialsError);
                     }
                     const tokens = await this.getTokens(user.id, user.email);
                     await this.updateRefreshTokenHash(user.id, tokens.refresh_token);
@@ -176,11 +176,11 @@ let AuthService = class AuthService {
                         },
                     });
                     if (!user || !user.hashedRefreshToken) {
-                        throw new Error(errorMessages_1.accessDeniedError);
+                        throw new Error(responseMessages_1.accessDeniedError);
                     }
                     const isRefreshTokenMatch = await argon2.verify(user.hashedRefreshToken, refreshToken);
                     if (!isRefreshTokenMatch)
-                        throw new Error(errorMessages_1.accessDeniedError);
+                        throw new Error(responseMessages_1.accessDeniedError);
                     const tokens = await this.getTokens(user.id, user.email);
                     await this.updateRefreshTokenHash(user.id, tokens.refresh_token);
                     resolve({ user, tokens });

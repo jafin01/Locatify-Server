@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PlacesController = void 0;
 const common_1 = require("@nestjs/common");
 const get_current_user_id_decorator_1 = require("../common/decorator/get-current-user-id.decorator");
-const errorMessages_1 = require("../constants/errorMessages");
+const responseMessages_1 = require("../constants/responseMessages");
 const returnHelpers_1 = require("../helpers/returnHelpers");
 const places_dto_1 = require("./dto/places.dto");
 const places_service_1 = require("./places.service");
@@ -26,7 +26,7 @@ let PlacesController = class PlacesController {
     async createPlace(placesDto, userId, params) {
         try {
             const place = await this.placesService.createPlace(placesDto, params.circleId, userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.placeCreateSuccess, place);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.placeCreateSuccess, place);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -35,7 +35,7 @@ let PlacesController = class PlacesController {
     async getPlaceById(params) {
         try {
             const place = await this.placesService.getPlaceById(params.placeId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getPlaceById, place);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.getPlaceById, place);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -44,7 +44,7 @@ let PlacesController = class PlacesController {
     async getPlacesInCircle(params) {
         try {
             const places = await this.placesService.getPlacesInCircle(params.circleId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.getPlacesInCircle, places);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.getPlacesInCircle, places);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -53,7 +53,7 @@ let PlacesController = class PlacesController {
     async deletePlace(params) {
         try {
             const place = await this.placesService.deletePlace(params.circleId, params.placeId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.deletePlace, place);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.deletePlace, place);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -62,7 +62,7 @@ let PlacesController = class PlacesController {
     async updatePlace(placeDto, userId, params) {
         try {
             const place = await this.placesService.updatePlace(placeDto, params.circleId, params.placeId, userId);
-            return (0, returnHelpers_1.handleSuccess)(errorMessages_1.updatedPlace, place);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.updatedPlace, place);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);

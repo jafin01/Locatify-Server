@@ -6,7 +6,7 @@ import {
   hashError,
   invalidCredentialsError,
   userAlreadyExistsError,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { JwtService } from '@nestjs/jwt';
 import { error, tokens } from 'src/types/tokens.type';
 import { UsersService } from 'src/users/users.service';

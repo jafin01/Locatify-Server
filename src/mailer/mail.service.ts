@@ -6,7 +6,7 @@ import {
   invalidOtpError,
   invalidUserIdError,
   otpExpiredError,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import {
   emailSubjectResetPass,
   getEmailTemplate,

@@ -5,7 +5,7 @@ import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import {
   OTPSentSuccess,
   passwordResetSuccess,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { VerifyEmailDto } from './dto/verify-email.dto';
 import { MailService } from './mail.service';
 

@@ -6,9 +6,9 @@ import {
   codeInvalidError,
   noCircleFoundError,
   noCircleMemberError,
-} from 'src/constants/errorMessages';
+} from 'src/constants/responseMessages';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { userAlreadyExistsError } from 'src/constants/errorMessages';
+import { userAlreadyExistsError } from 'src/constants/responseMessages';
 @Injectable()
 export class CircleService {
   constructor(private prismaService: PrismaService) {}
