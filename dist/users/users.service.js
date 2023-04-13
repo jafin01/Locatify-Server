@@ -61,14 +61,20 @@ let UsersService = class UsersService {
         });
     }
     updateMobileNumber(userId, userDto) {
-        return new Promise((resolve, reject) => {
-            const { mobileNo } = userDto;
+        return new Promise(async (resolve, reject) => {
+            const { countryCode, mobileNo } = userDto;
+            if (!countryCode || !mobileNo)
+                throw new Error(responseMessages_1.insufficientDataError);
             try {
-                const user = this.prismaService.user.update({
+                const user = await this.getUserById(userId);
+                if (user.countryCode.trim() === countryCode.trim() &&
+                    user.mobileNo.trim() === mobileNo.trim())
+                    throw new Error(responseMessages_1.mobileNoAlreadyExistsError);
+                const updatedUser = this.prismaService.user.update({
                     where: { id: userId },
-                    data: { mobileNo },
+                    data: { countryCode, mobileNo },
                 });
-                resolve(user);
+                resolve(updatedUser);
             }
             catch (error) {
                 reject(error);
@@ -160,6 +166,8 @@ let UsersService = class UsersService {
                         lastSeen: new Date(),
                         isActive: true,
                         activeStatus: 'Online',
+                        otp: null,
+                        otpExpiresAt: null,
                     },
                 });
                 await this.updateActiveStatus();

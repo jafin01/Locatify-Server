@@ -111,14 +111,4 @@ export class UsersController {
       return handleError(error);
     }
   }
-
-  // @Get('count')
-  // async countActiveUsers() {
-  //   try {
-  //     const activeUsersCount = await this.userService.countActiveUsers();
-  //     return handleSuccess(activeUsersCountSuccess, activeUsersCount);
-  //   } catch (error) {
-  //     return handleError(error);
-  //   }
-  // }
 }

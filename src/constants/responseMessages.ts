@@ -17,6 +17,8 @@ export const invalidEmailError = 'No user found with this email';
 export const invalidUserIdError = 'Invalid User Id';
 export const invalidOtpError = 'Invalid OTP';
 export const otpExpiredError = 'OTP Expired';
+export const insufficientDataError = 'Enter Country Code and Mobile Number';
+export const mobileNoAlreadyExistsError = 'Mobile Number Already Exists';
 
 export const logoutSuccess = 'Logout Successfull';
 export const loginSuccess = 'Login Success';

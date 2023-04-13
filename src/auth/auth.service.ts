@@ -91,9 +91,7 @@ export class AuthService {
         authDto;
 
       try {
-        const user = await this.prismaService.user.findUnique({
-          where: { email },
-        });
+        const user = await this.usersService.getUserByEmail(email);
 
         if (user) {
           throw new Error(userAlreadyExistsError);
@@ -127,11 +125,7 @@ export class AuthService {
       try {
         const { email, password } = loginDto;
 
-        const user = await this.prismaService.user.findUnique({
-          where: {
-            email,
-          },
-        });
+        const user: any = await this.usersService.getUserByEmail(email);
 
         if (!user) {
           throw new Error(invalidCredentialsError);
@@ -194,11 +188,7 @@ export class AuthService {
   refreshTokens = (id: string, refreshToken: string) => {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = await this.prismaService.user.findUnique({
-          where: {
-            id,
-          },
-        });
+        const user: any = await this.usersService.getUserById(id);
 
         if (!user || !user.hashedRefreshToken) {
           throw new Error(accessDeniedError);

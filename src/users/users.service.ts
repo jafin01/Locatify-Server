@@ -2,7 +2,11 @@ import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserDto } from './dto/user.dto';
 import * as argon2 from 'argon2';
-import { currentPasswordIncorrectError } from 'src/constants/responseMessages';
+import {
+  currentPasswordIncorrectError,
+  insufficientDataError,
+  mobileNoAlreadyExistsError,
+} from 'src/constants/responseMessages';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ActiveStatus } from 'src/types/users.type';
@@ -53,14 +57,24 @@ export class UsersService {
   }
 
   updateMobileNumber(userId: string, userDto: UserDto) {
-    return new Promise((resolve, reject) => {
-      const { mobileNo } = userDto;
+    return new Promise(async (resolve, reject) => {
+      const { countryCode, mobileNo } = userDto;
+
+      if (!countryCode || !mobileNo) throw new Error(insufficientDataError);
       try {
-        const user = this.prismaService.user.update({
+        const user: any = await this.getUserById(userId);
+
+        if (
+          user.countryCode.trim() === countryCode.trim() &&
+          user.mobileNo.trim() === mobileNo.trim()
+        )
+          throw new Error(mobileNoAlreadyExistsError);
+
+        const updatedUser = this.prismaService.user.update({
           where: { id: userId },
-          data: { mobileNo },
+          data: { countryCode, mobileNo },
         });
-        resolve(user);
+        resolve(updatedUser);
       } catch (error) {
         reject(error);
       }
@@ -158,6 +172,8 @@ export class UsersService {
             lastSeen: new Date(),
             isActive: true,
             activeStatus: 'Online',
+            otp: null,
+            otpExpiresAt: null,
           },
         });
 
