@@ -104,16 +104,6 @@ export class UsersController {
     }
   }
 
-  @Post('delete-profile-picture')
-  async deleteProfilePicture(@GetCurrentUserId() userId: string) {
-    try {
-      const imageUrl: any = await this.userService.deleteProfilePicture(userId);
-      return handleSuccess(uploadedProfilePicSuccess, imageUrl);
-    } catch (error) {
-      return handleError(error);
-    }
-  }
-
   @Post('update-last-seen')
   async updateLastSeen(@GetCurrentUserId() userId: string) {
     try {
