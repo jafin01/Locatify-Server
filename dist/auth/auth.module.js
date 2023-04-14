@@ -15,6 +15,7 @@ const auth_service_1 = require("./auth.service");
 const accessToken_strategy_1 = require("./strategies/accessToken.strategy");
 const refreshToken_strategy_1 = require("./strategies/refreshToken.strategy");
 const users_service_1 = require("../users/users.service");
+const mail_service_1 = require("../mailer/mail.service");
 let AuthModule = class AuthModule {
 };
 AuthModule = __decorate([
@@ -26,6 +27,7 @@ AuthModule = __decorate([
             accessToken_strategy_1.AccessTokenStrategy,
             refreshToken_strategy_1.refreshTokenStrategy,
             users_service_1.UsersService,
+            mail_service_1.MailService,
         ],
     })
 ], AuthModule);

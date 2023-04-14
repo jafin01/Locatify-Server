@@ -23,9 +23,13 @@ const returnHelpers_1 = require("../helpers/returnHelpers");
 const auth_service_1 = require("./auth.service");
 const auth_dto_1 = require("./dto/auth.dto");
 const login_dto_1 = require("./dto/login.dto");
+const verify_email_dto_1 = require("./dto/verify-email.dto");
+const reset_password_dto_1 = require("./dto/reset-password.dto");
+const mail_service_1 = require("../mailer/mail.service");
 let AuthController = class AuthController {
-    constructor(authService) {
+    constructor(authService, mailService) {
         this.authService = authService;
+        this.mailService = mailService;
     }
     async userSignup(authDto) {
         try {
@@ -58,6 +62,26 @@ let AuthController = class AuthController {
         try {
             const response = await this.authService.refreshTokens(userId, refreshToken);
             return (0, returnHelpers_1.handleSuccess)(responseMessages_1.refreshTokenSuccess, response.user, response.tokens);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
+    async forgetPassword(verifyEmailDto) {
+        try {
+            const { email } = verifyEmailDto;
+            const data = await this.mailService.sendOtpInMail(email);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.OTPSentSuccess, data);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
+    async resetPassword(resetPasswordDto, userId) {
+        const { otp, password } = resetPasswordDto;
+        try {
+            const data = await this.mailService.verifyOtpAndResetPassword(userId, otp, password);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.passwordResetSuccess, data);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -100,9 +124,27 @@ __decorate([
     __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "refreshTokens", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Post)('password/forget'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [verify_email_dto_1.VerifyEmailDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "forgetPassword", null);
+__decorate([
+    (0, public_decorator_1.Public)(),
+    (0, common_1.Post)('password/reset/:userId'),
+    __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Param)('userId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [reset_password_dto_1.ResetPasswordDto, String]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "resetPassword", null);
 AuthController = __decorate([
     (0, common_1.Controller)('api/auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService,
+        mail_service_1.MailService])
 ], AuthController);
 exports.AuthController = AuthController;
 //# sourceMappingURL=auth.controller.js.map

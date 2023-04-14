@@ -60,4 +60,11 @@ export declare class UsersController {
         tokens: any;
         stack: any;
     }>;
+    deleteAccount(userId: string): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
 }

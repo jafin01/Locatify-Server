@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Body } from '@nestjs/common';
+import { Controller, Get, Param, Post, Body, Delete } from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
   fetchUserSuccess,
@@ -9,6 +9,7 @@ import {
   updatePasswordSuccess,
   updateEmailSuccess,
   uploadedProfilePicSuccess,
+  userDeletedSuccess,
 } from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -107,6 +108,16 @@ export class UsersController {
     try {
       const activeUsers = await this.userService.getAllActiveUsers();
       return handleSuccess(allActiceUsersSuccess, activeUsers);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Delete('delete-account')
+  async deleteAccount(@GetCurrentUserId() userId: string) {
+    try {
+      const user = await this.userService.deleteUserAccount(userId);
+      return handleSuccess(userDeletedSuccess, user);
     } catch (error) {
       return handleError(error);
     }

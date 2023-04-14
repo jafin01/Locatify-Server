@@ -83,9 +83,7 @@ let AuthService = class AuthService {
             return new Promise(async (resolve, reject) => {
                 const { countryCode, mobileNo, firstName, lastName, email, password } = authDto;
                 try {
-                    const user = await this.prismaService.user.findUnique({
-                        where: { email },
-                    });
+                    const user = await this.usersService.getUserByEmail(email);
                     if (user) {
                         throw new Error(responseMessages_1.userAlreadyExistsError);
                     }
@@ -113,11 +111,7 @@ let AuthService = class AuthService {
             return new Promise(async (resolve, reject) => {
                 try {
                     const { email, password } = loginDto;
-                    const user = await this.prismaService.user.findUnique({
-                        where: {
-                            email,
-                        },
-                    });
+                    const user = await this.usersService.getUserByEmail(email);
                     if (!user) {
                         throw new Error(responseMessages_1.invalidCredentialsError);
                     }
@@ -170,11 +164,7 @@ let AuthService = class AuthService {
         this.refreshTokens = (id, refreshToken) => {
             return new Promise(async (resolve, reject) => {
                 try {
-                    const user = await this.prismaService.user.findUnique({
-                        where: {
-                            id,
-                        },
-                    });
+                    const user = await this.usersService.getUserById(id);
                     if (!user || !user.hashedRefreshToken) {
                         throw new Error(responseMessages_1.accessDeniedError);
                     }

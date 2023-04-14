@@ -3,6 +3,7 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -11,8 +12,10 @@ import { GetCurrentUser } from 'src/common/decorator/get-current-user.decorator'
 import { Public } from 'src/common/decorator/public.decorator';
 import { RefreshTokenGuard } from 'src/common/guards/refreshToken.guard';
 import {
+  OTPSentSuccess,
   loginSuccess,
   logoutSuccess,
+  passwordResetSuccess,
   refreshTokenSuccess,
   registerSuccess,
 } from 'src/constants/responseMessages';
@@ -20,10 +23,16 @@ import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { AuthService } from './auth.service';
 import { AuthDto } from './dto/auth.dto';
 import { LoginDto } from './dto/login.dto';
+import { VerifyEmailDto } from './dto/verify-email.dto';
+import { ResetPasswordDto } from './dto/reset-password.dto';
+import { MailService } from 'src/mailer/mail.service';
 
 @Controller('api/auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private mailService: MailService,
+  ) {}
 
   @Public()
   @Post('local/signup')
@@ -73,6 +82,38 @@ export class AuthController {
         refreshToken,
       );
       return handleSuccess(refreshTokenSuccess, response.user, response.tokens);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Public()
+  @Post('password/forget')
+  async forgetPassword(@Body() verifyEmailDto: VerifyEmailDto) {
+    try {
+      const { email } = verifyEmailDto;
+      const data: any = await this.mailService.sendOtpInMail(email);
+
+      return handleSuccess(OTPSentSuccess, data);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Public()
+  @Post('password/reset/:userId')
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Param('userId') userId: string,
+  ) {
+    const { otp, password } = resetPasswordDto;
+    try {
+      const data: any = await this.mailService.verifyOtpAndResetPassword(
+        userId,
+        otp,
+        password,
+      );
+      return handleSuccess(passwordResetSuccess, data);
     } catch (error) {
       return handleError(error);
     }
