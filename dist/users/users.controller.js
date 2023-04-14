@@ -20,6 +20,7 @@ const returnHelpers_1 = require("../helpers/returnHelpers");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const user_dto_1 = require("./dto/user.dto");
 const users_service_1 = require("./users.service");
+const platform_express_1 = require("@nestjs/platform-express");
 let UsersController = class UsersController {
     constructor(userService) {
         this.userService = userService;
@@ -70,10 +71,19 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
-    async updateProfilePicture(userId, userDto) {
+    async uploadImage(file, userId) {
         try {
-            const user = await this.userService.uploadProfilePicture(userId, userDto);
-            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.uploadedProfilePicSuccess, user);
+            const imageUrl = await this.userService.uploadProfilePicture(userId, file);
+            return (0, returnHelpers_1.handleSuccess)(imageUrl);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
+    async deleteProfilePicture(userId) {
+        try {
+            const imageUrl = await this.userService.deleteProfilePicture(userId);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.uploadedProfilePicSuccess, imageUrl);
         }
         catch (error) {
             return (0, returnHelpers_1.handleError)(error);
@@ -145,13 +155,21 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "updatePassword", null);
 __decorate([
-    (0, common_1.Post)('update-profile-picture'),
-    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
-    __param(1, (0, common_1.Body)()),
+    (0, common_1.Post)('upload-profile-picture'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, user_dto_1.UserDto]),
+    __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
-], UsersController.prototype, "updateProfilePicture", null);
+], UsersController.prototype, "uploadImage", null);
+__decorate([
+    (0, common_1.Post)('delete-profile-picture'),
+    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteProfilePicture", null);
 __decorate([
     (0, common_1.Post)('update-last-seen'),
     __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
