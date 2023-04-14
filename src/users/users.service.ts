@@ -6,6 +6,7 @@ import {
   currentPasswordIncorrectError,
   insufficientDataError,
   mobileNoAlreadyExistsError,
+  userDeleteError,
 } from 'src/constants/responseMessages';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
@@ -62,8 +63,9 @@ export class UsersService {
     return new Promise(async (resolve, reject) => {
       const { countryCode, mobileNo } = userDto;
 
-      if (!countryCode || !mobileNo) throw new Error(insufficientDataError);
       try {
+        if (!countryCode || !mobileNo) throw new Error(insufficientDataError);
+
         const user: any = await this.getUserById(userId);
 
         if (
@@ -126,7 +128,6 @@ export class UsersService {
   async uploadProfilePicture(userId: string, file: any) {
     return new Promise(async (resolve, reject) => {
       try {
-        console.log(file);
         const s3 = new S3({
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -140,7 +141,6 @@ export class UsersService {
           ACL: 'public-read',
         };
         await s3.upload(uploadParams).promise();
-        console.log('File uploaded to S3');
         const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
 
         const updatedUser = await this.updateUser(userId, imageUrl);
@@ -283,6 +283,14 @@ export class UsersService {
   deleteUserAccount(userId: string) {
     return new Promise(async (resolve, reject) => {
       try {
+        const circles = await this.prismaService.circle.findMany({
+          where: { createdUserId: userId },
+        });
+
+        if (circles.length > 0) {
+          throw new Error(userDeleteError);
+        }
+
         await this.prismaService.circleMembers.deleteMany({
           where: { userId },
         });

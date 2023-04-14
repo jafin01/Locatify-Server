@@ -65,9 +65,9 @@ let UsersService = class UsersService {
     updateMobileNumber(userId, userDto) {
         return new Promise(async (resolve, reject) => {
             const { countryCode, mobileNo } = userDto;
-            if (!countryCode || !mobileNo)
-                throw new Error(responseMessages_1.insufficientDataError);
             try {
+                if (!countryCode || !mobileNo)
+                    throw new Error(responseMessages_1.insufficientDataError);
                 const user = await this.getUserById(userId);
                 if (user.countryCode.trim() === countryCode.trim() &&
                     user.mobileNo.trim() === mobileNo.trim())
@@ -121,7 +121,6 @@ let UsersService = class UsersService {
     async uploadProfilePicture(userId, file) {
         return new Promise(async (resolve, reject) => {
             try {
-                console.log(file);
                 const s3 = new aws_sdk_1.S3({
                     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
                     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -135,7 +134,6 @@ let UsersService = class UsersService {
                     ACL: 'public-read',
                 };
                 await s3.upload(uploadParams).promise();
-                console.log('File uploaded to S3');
                 const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
                 const updatedUser = await this.updateUser(userId, imageUrl);
                 resolve(updatedUser);
@@ -294,6 +292,12 @@ let UsersService = class UsersService {
     deleteUserAccount(userId) {
         return new Promise(async (resolve, reject) => {
             try {
+                const circles = await this.prismaService.circle.findMany({
+                    where: { createdUserId: userId },
+                });
+                if (circles.length > 0) {
+                    throw new Error(responseMessages_1.userDeleteError);
+                }
                 await this.prismaService.circleMembers.deleteMany({
                     where: { userId },
                 });

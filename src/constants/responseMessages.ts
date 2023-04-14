@@ -62,3 +62,5 @@ export const uploadedProfilePicSuccess =
 export const OTPSentSuccess = 'OTP Sent to Mail Successfully';
 export const passwordResetSuccess = 'Password Reset Successfully';
 export const userDeletedSuccess = 'User Deleted Successfully';
+export const userDeleteError =
+  'You cannot delete your account as you are the admin of one or more circles. Please delete the circles first.';
