@@ -63,8 +63,9 @@ export class UsersService {
     return new Promise(async (resolve, reject) => {
       const { countryCode, mobileNo } = userDto;
 
-      if (!countryCode || !mobileNo) throw new Error(insufficientDataError);
       try {
+        if (!countryCode || !mobileNo) throw new Error(insufficientDataError);
+
         const user: any = await this.getUserById(userId);
 
         if (

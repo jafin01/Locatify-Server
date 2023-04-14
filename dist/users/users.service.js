@@ -65,9 +65,9 @@ let UsersService = class UsersService {
     updateMobileNumber(userId, userDto) {
         return new Promise(async (resolve, reject) => {
             const { countryCode, mobileNo } = userDto;
-            if (!countryCode || !mobileNo)
-                throw new Error(responseMessages_1.insufficientDataError);
             try {
+                if (!countryCode || !mobileNo)
+                    throw new Error(responseMessages_1.insufficientDataError);
                 const user = await this.getUserById(userId);
                 if (user.countryCode.trim() === countryCode.trim() &&
                     user.mobileNo.trim() === mobileNo.trim())
