@@ -46,6 +46,13 @@ export declare class UsersController {
         tokens: any;
         stack: any;
     }>;
+    deleteProfilePicture(userId: string): Promise<{
+        success: boolean;
+        message: any;
+        data: any;
+        tokens: any;
+        stack: any;
+    }>;
     updateLastSeen(userId: string): Promise<{
         success: boolean;
         message: any;

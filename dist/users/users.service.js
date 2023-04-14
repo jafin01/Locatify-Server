@@ -145,6 +145,30 @@ let UsersService = class UsersService {
             }
         });
     }
+    async deleteProfilePicture(userId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.getUserById(userId);
+                const imageUrl = user.profilePicUrl;
+                const fileName = imageUrl.split('/').pop();
+                const s3 = new aws_sdk_1.S3({
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                });
+                const deleteParams = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: fileName,
+                };
+                await s3.deleteObject(deleteParams).promise();
+                console.log('File deleted from S3');
+                const updatedUser = await this.updateUser(userId, null);
+                resolve(updatedUser);
+            }
+            catch (error) {
+                reject(error);
+            }
+        });
+    }
     updateUser(userId, imageUrl) {
         return new Promise(async (resolve, reject) => {
             try {

@@ -80,6 +80,15 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async deleteProfilePicture(userId) {
+        try {
+            const imageUrl = await this.userService.deleteProfilePicture(userId);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.uploadedProfilePicSuccess, imageUrl);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
     async updateLastSeen(userId) {
         try {
             const user = await this.userService.updateLastSeen(userId);
@@ -154,6 +163,13 @@ __decorate([
     __metadata("design:paramtypes", [Object, String]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "uploadImage", null);
+__decorate([
+    (0, common_1.Post)('delete-profile-picture'),
+    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteProfilePicture", null);
 __decorate([
     (0, common_1.Post)('update-last-seen'),
     __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
