@@ -248,4 +248,38 @@ export class UsersService {
       }
     });
   }
+
+  deleteUserAccount(userId: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        await this.prismaService.circleMembers.deleteMany({
+          where: { userId },
+        });
+
+        await this.prismaService.location.deleteMany({
+          where: { userId },
+        });
+
+        await this.prismaService.places.deleteMany({
+          where: { userId },
+        });
+
+        await this.prismaService.devices.deleteMany({
+          where: { userId },
+        });
+
+        await this.prismaService.sessionTime.deleteMany({
+          where: { userId },
+        });
+
+        const user = this.prismaService.user.delete({
+          where: { id: userId },
+        });
+
+        resolve(user);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
 }

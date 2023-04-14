@@ -18,4 +18,5 @@ export declare class UsersService {
     updateLastSeen(userId: string): Promise<unknown>;
     updateActiveStatus(): Promise<void>;
     getActiveStatus(userId: string): Promise<unknown>;
+    deleteUserAccount(userId: string): Promise<unknown>;
 }

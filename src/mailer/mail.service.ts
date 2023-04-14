@@ -11,6 +11,7 @@ import {
   emailSubjectResetPass,
   getEmailTemplate,
 } from 'src/helpers/email-template';
+import * as argon2 from 'argon2';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -84,6 +85,9 @@ export class MailService {
         if (user.otp !== otp) {
           throw new Error(invalidOtpError);
         }
+
+        if (await argon2.verify(user.hashedPassword, password))
+          throw new Error("Password can't be same as old password");
 
         const hashedPassword = await this.authService.hashData(password);
 

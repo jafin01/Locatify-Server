@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { AccessTokenStrategy } from './strategies/accessToken.strategy';
 import { refreshTokenStrategy } from './strategies/refreshToken.strategy';
 import { UsersService } from 'src/users/users.service';
+import { MailService } from 'src/mailer/mail.service';
 
 @Module({
   imports: [forwardRef(() => PrismaModule), JwtModule.register({})],
@@ -15,6 +16,7 @@ import { UsersService } from 'src/users/users.service';
     AccessTokenStrategy,
     refreshTokenStrategy,
     UsersService,
+    MailService,
   ],
 })
 export class AuthModule {}

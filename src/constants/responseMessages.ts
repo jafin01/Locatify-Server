@@ -61,3 +61,4 @@ export const uploadedProfilePicSuccess =
   'Uploaded Profile Picture Successfully';
 export const OTPSentSuccess = 'OTP Sent to Mail Successfully';
 export const passwordResetSuccess = 'Password Reset Successfully';
+export const userDeletedSuccess = 'User Deleted Successfully';

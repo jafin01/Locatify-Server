@@ -97,6 +97,15 @@ let UsersController = class UsersController {
             return (0, returnHelpers_1.handleError)(error);
         }
     }
+    async deleteAccount(userId) {
+        try {
+            const user = await this.userService.deleteUserAccount(userId);
+            return (0, returnHelpers_1.handleSuccess)(responseMessages_1.userDeletedSuccess, user);
+        }
+        catch (error) {
+            return (0, returnHelpers_1.handleError)(error);
+        }
+    }
 };
 __decorate([
     (0, common_1.Get)('get-users'),
@@ -156,6 +165,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getAllActiveUsers", null);
+__decorate([
+    (0, common_1.Delete)('delete-account'),
+    __param(0, (0, get_current_user_id_decorator_1.GetCurrentUserId)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], UsersController.prototype, "deleteAccount", null);
 UsersController = __decorate([
     (0, common_1.Controller)('api/user'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
