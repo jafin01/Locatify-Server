@@ -1,4 +1,13 @@
-import { Controller, Get, Param, Post, Body, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  Body,
+  Delete,
+  UseInterceptors,
+  UploadedFile,
+} from '@nestjs/common';
 import { GetCurrentUserId } from 'src/common/decorator/get-current-user-id.decorator';
 import {
   fetchUserSuccess,
@@ -15,6 +24,7 @@ import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('api/user')
 export class UsersController {
@@ -80,14 +90,15 @@ export class UsersController {
     }
   }
 
-  @Post('update-profile-picture')
-  async updateProfilePicture(
-    @GetCurrentUserId() userId: string,
-    @Body() userDto: UserDto,
-  ) {
+  @Post('upload-profile-picture')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadImage(@UploadedFile() file, @GetCurrentUserId() userId: string) {
     try {
-      const user = await this.userService.uploadProfilePicture(userId, userDto);
-      return handleSuccess(uploadedProfilePicSuccess, user);
+      const imageUrl: any = await this.userService.uploadProfilePicture(
+        userId,
+        file,
+      );
+      return handleSuccess(imageUrl);
     } catch (error) {
       return handleError(error);
     }

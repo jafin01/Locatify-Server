@@ -39,7 +39,7 @@ export declare class UsersController {
         tokens: any;
         stack: any;
     }>;
-    updateProfilePicture(userId: string, userDto: UserDto): Promise<{
+    uploadImage(file: any, userId: string): Promise<{
         success: boolean;
         message: any;
         data: any;

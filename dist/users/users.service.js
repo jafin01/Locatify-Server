@@ -18,6 +18,8 @@ const prisma_service_1 = require("../prisma/prisma.service");
 const argon2 = require("argon2");
 const responseMessages_1 = require("../constants/responseMessages");
 const auth_service_1 = require("../auth/auth.service");
+const uuid_1 = require("uuid");
+const aws_sdk_1 = require("aws-sdk");
 let UsersService = class UsersService {
     constructor(authService, prismaService) {
         this.authService = authService;
@@ -116,13 +118,41 @@ let UsersService = class UsersService {
             }
         });
     }
-    uploadProfilePicture(userId, userDto) {
-        return new Promise((resolve, reject) => {
-            const { profilePicUrl } = userDto;
+    async uploadProfilePicture(userId, file) {
+        return new Promise(async (resolve, reject) => {
             try {
-                const user = this.prismaService.user.update({
+                console.log(file);
+                const s3 = new aws_sdk_1.S3({
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                });
+                const fileExtension = file.originalname.split('.').pop();
+                const fileName = `${(0, uuid_1.v4)()}.${fileExtension}`;
+                const uploadParams = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: fileName,
+                    Body: file.buffer,
+                    ACL: 'public-read',
+                };
+                await s3.upload(uploadParams).promise();
+                console.log('File uploaded to S3');
+                const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
+                const updatedUser = await this.updateUser(userId, imageUrl);
+                resolve(updatedUser);
+            }
+            catch (error) {
+                reject(error);
+            }
+        });
+    }
+    updateUser(userId, imageUrl) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.prismaService.user.update({
                     where: { id: userId },
-                    data: { profilePicUrl },
+                    data: {
+                        profilePicUrl: imageUrl,
+                    },
                 });
                 resolve(user);
             }

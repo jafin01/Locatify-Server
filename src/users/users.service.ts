@@ -10,6 +10,8 @@ import {
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthService } from 'src/auth/auth.service';
 import { ActiveStatus } from 'src/types/users.type';
+import { v4 as uuidv4 } from 'uuid';
+import { S3 } from 'aws-sdk';
 
 @Injectable()
 export class UsersService {
@@ -121,13 +123,42 @@ export class UsersService {
     });
   }
 
-  uploadProfilePicture(userId: string, userDto) {
-    return new Promise((resolve, reject) => {
-      const { profilePicUrl } = userDto;
+  async uploadProfilePicture(userId: string, file: any) {
+    return new Promise(async (resolve, reject) => {
       try {
-        const user = this.prismaService.user.update({
+        console.log(file);
+        const s3 = new S3({
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        });
+        const fileExtension = file.originalname.split('.').pop();
+        const fileName = `${uuidv4()}.${fileExtension}`;
+        const uploadParams = {
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: fileName,
+          Body: file.buffer,
+          ACL: 'public-read',
+        };
+        await s3.upload(uploadParams).promise();
+        console.log('File uploaded to S3');
+        const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
+
+        const updatedUser = await this.updateUser(userId, imageUrl);
+        resolve(updatedUser);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  updateUser(userId: string, imageUrl: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await this.prismaService.user.update({
           where: { id: userId },
-          data: { profilePicUrl },
+          data: {
+            profilePicUrl: imageUrl,
+          },
         });
         resolve(user);
       } catch (error) {
