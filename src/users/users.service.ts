@@ -130,7 +130,7 @@ export class UsersService {
     return new Promise(async (resolve, reject) => {
       try {
         const user: any = await this.getUserById(userId);
-        if (user.profilePicUrl) {
+        if (user?.profilePicUrl) {
           await this.deleteProfilePicture(userId);
         }
 

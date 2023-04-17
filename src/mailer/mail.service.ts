@@ -58,6 +58,7 @@ export class MailService {
 
         const responseToClient = {
           userId: updatedUser.id,
+          otp,
           otpExpiresAt: updatedUser.otpExpiresAt,
         };
         resolve(responseToClient);

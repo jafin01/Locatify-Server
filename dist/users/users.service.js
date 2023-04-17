@@ -122,7 +122,7 @@ let UsersService = class UsersService {
         return new Promise(async (resolve, reject) => {
             try {
                 const user = await this.getUserById(userId);
-                if (user.profilePicUrl) {
+                if (user === null || user === void 0 ? void 0 : user.profilePicUrl) {
                     await this.deleteProfilePicture(userId);
                 }
                 const s3 = new aws_sdk_1.S3({
