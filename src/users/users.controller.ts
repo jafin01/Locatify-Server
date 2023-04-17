@@ -98,7 +98,7 @@ export class UsersController {
         userId,
         file,
       );
-      return handleSuccess(imageUrl);
+      return handleSuccess(uploadedProfilePicSuccess, imageUrl);
     } catch (error) {
       return handleError(error);
     }
