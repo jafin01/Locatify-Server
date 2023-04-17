@@ -295,8 +295,24 @@ let UsersService = class UsersService {
                 const circles = await this.prismaService.circle.findMany({
                     where: { createdUserId: userId },
                 });
-                if (circles.length > 0) {
+                if (circles.length > 1) {
                     throw new Error(responseMessages_1.userDeleteError);
+                }
+                else if (circles.length === 1) {
+                    const circleMembers = await this.prismaService.circleMembers.findMany({
+                        where: { circleId: circles[0].id },
+                    });
+                    if (circleMembers.length > 1) {
+                        throw new Error(responseMessages_1.userDeleteError);
+                    }
+                    else if (circleMembers.length === 1) {
+                        await this.prismaService.circleMembers.delete({
+                            where: { id: circleMembers[0].id },
+                        });
+                        await this.prismaService.circle.delete({
+                            where: { id: circleMembers[0].circleId },
+                        });
+                    }
                 }
                 await this.prismaService.circleMembers.deleteMany({
                     where: { userId },

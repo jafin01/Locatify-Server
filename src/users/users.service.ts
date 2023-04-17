@@ -289,10 +289,23 @@ export class UsersService {
 
         if (circles.length > 1) {
           throw new Error(userDeleteError);
-        } else {
-          await this.prismaService.circle.deleteMany({
-            where: { createdUserId: userId },
-          });
+        } else if (circles.length === 1) {
+          const circleMembers = await this.prismaService.circleMembers.findMany(
+            {
+              where: { circleId: circles[0].id },
+            },
+          );
+          if (circleMembers.length > 1) {
+            throw new Error(userDeleteError);
+          } else if (circleMembers.length === 1) {
+            await this.prismaService.circleMembers.delete({
+              where: { id: circleMembers[0].id },
+            });
+
+            await this.prismaService.circle.delete({
+              where: { id: circleMembers[0].circleId },
+            });
+          }
         }
 
         await this.prismaService.circleMembers.deleteMany({
