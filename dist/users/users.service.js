@@ -26,9 +26,9 @@ let UsersService = class UsersService {
         this.prismaService = prismaService;
     }
     getAllUsers() {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                const users = this.prismaService.user.findMany();
+                const users = await this.prismaService.user.findMany();
                 resolve(users);
             }
             catch (error) {
@@ -37,9 +37,9 @@ let UsersService = class UsersService {
         });
     }
     getUserByEmail(email) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                const user = this.prismaService.user.findUnique({
+                const user = await this.prismaService.user.findUnique({
                     where: { email },
                 });
                 resolve(user);
@@ -50,9 +50,9 @@ let UsersService = class UsersService {
         });
     }
     getUserById(userId) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             try {
-                const user = this.prismaService.user.findUnique({
+                const user = await this.prismaService.user.findUnique({
                     where: { id: userId },
                 });
                 resolve(user);
@@ -72,7 +72,7 @@ let UsersService = class UsersService {
                 if (user.countryCode.trim() === countryCode.trim() &&
                     user.mobileNo.trim() === mobileNo.trim())
                     throw new Error(responseMessages_1.mobileNoAlreadyExistsError);
-                const updatedUser = this.prismaService.user.update({
+                const updatedUser = await this.prismaService.user.update({
                     where: { id: userId },
                     data: { countryCode, mobileNo },
                 });
@@ -84,10 +84,10 @@ let UsersService = class UsersService {
         });
     }
     updateEmail(userId, userDto) {
-        return new Promise((resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             const { email } = userDto;
             try {
-                const user = this.prismaService.user.update({
+                const user = await this.prismaService.user.update({
                     where: { id: userId },
                     data: { email },
                 });
@@ -107,7 +107,7 @@ let UsersService = class UsersService {
                 if (!passwordIsMatch)
                     throw new Error(responseMessages_1.currentPasswordIncorrectError);
                 const hashedPassword = await this.authService.hashData(newPassword);
-                const updatedUser = this.prismaService.user.update({
+                const updatedUser = await this.prismaService.user.update({
                     where: { id: userId },
                     data: { hashedPassword },
                 });
@@ -118,9 +118,13 @@ let UsersService = class UsersService {
             }
         });
     }
-    async uploadProfilePicture(userId, file) {
+    uploadProfilePicture(userId, file) {
         return new Promise(async (resolve, reject) => {
             try {
+                const user = await this.getUserById(userId);
+                if (user.profilePicUrl) {
+                    await this.deleteProfilePicture(userId);
+                }
                 const s3 = new aws_sdk_1.S3({
                     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
                     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -136,6 +140,29 @@ let UsersService = class UsersService {
                 await s3.upload(uploadParams).promise();
                 const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
                 const updatedUser = await this.updateUser(userId, imageUrl);
+                resolve(updatedUser);
+            }
+            catch (error) {
+                reject(error);
+            }
+        });
+    }
+    deleteProfilePicture(userId) {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await this.getUserById(userId);
+                const s3 = new aws_sdk_1.S3({
+                    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+                    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+                });
+                const fileName = user.profilePicUrl.split('/').pop();
+                console.log(fileName);
+                const deleteParams = {
+                    Bucket: process.env.AWS_BUCKET_NAME,
+                    Key: fileName,
+                };
+                await s3.deleteObject(deleteParams).promise();
+                const updatedUser = await this.updateUser(userId, null);
                 resolve(updatedUser);
             }
             catch (error) {
@@ -188,7 +215,7 @@ let UsersService = class UsersService {
     updateLastSeen(userId) {
         return new Promise(async (resolve, reject) => {
             try {
-                const user = this.prismaService.user.update({
+                const user = await this.prismaService.user.update({
                     where: { id: userId },
                     data: {
                         lastSeen: new Date(),

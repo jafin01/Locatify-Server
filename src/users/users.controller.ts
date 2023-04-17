@@ -19,6 +19,7 @@ import {
   updateEmailSuccess,
   uploadedProfilePicSuccess,
   userDeletedSuccess,
+  deletedProfilePicSuccess,
 } from 'src/constants/responseMessages';
 import { handleError, handleSuccess } from 'src/helpers/returnHelpers';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -99,6 +100,16 @@ export class UsersController {
         file,
       );
       return handleSuccess(uploadedProfilePicSuccess, imageUrl);
+    } catch (error) {
+      return handleError(error);
+    }
+  }
+
+  @Delete('delete-profile-picture')
+  async deleteProfilePicture(@GetCurrentUserId() userId: string) {
+    try {
+      const user = await this.userService.deleteProfilePicture(userId);
+      return handleSuccess(deletedProfilePicSuccess, user);
     } catch (error) {
       return handleError(error);
     }

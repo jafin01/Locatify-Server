@@ -13,6 +13,7 @@ export declare class UsersService {
     updateEmail(userId: string, userDto: UserDto): Promise<unknown>;
     updatePassword(userId: string, userDto: UpdateUserDto): Promise<unknown>;
     uploadProfilePicture(userId: string, file: any): Promise<unknown>;
+    deleteProfilePicture(userId: string): Promise<unknown>;
     updateUser(userId: string, imageUrl: string): Promise<unknown>;
     getAllActiveUsers(): Promise<unknown>;
     countActiveUsers(): Promise<unknown>;

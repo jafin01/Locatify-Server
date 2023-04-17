@@ -23,9 +23,9 @@ export class UsersService {
   ) {}
 
   getAllUsers() {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const users = this.prismaService.user.findMany();
+        const users = await this.prismaService.user.findMany();
         resolve(users);
       } catch (error) {
         reject(error);
@@ -34,9 +34,9 @@ export class UsersService {
   }
 
   getUserByEmail(email: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const user = this.prismaService.user.findUnique({
+        const user = await this.prismaService.user.findUnique({
           where: { email },
         });
         resolve(user);
@@ -47,11 +47,12 @@ export class UsersService {
   }
 
   getUserById(userId: string) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const user = this.prismaService.user.findUnique({
+        const user = await this.prismaService.user.findUnique({
           where: { id: userId },
         });
+
         resolve(user);
       } catch (error) {
         reject(error);
@@ -74,7 +75,7 @@ export class UsersService {
         )
           throw new Error(mobileNoAlreadyExistsError);
 
-        const updatedUser = this.prismaService.user.update({
+        const updatedUser = await this.prismaService.user.update({
           where: { id: userId },
           data: { countryCode, mobileNo },
         });
@@ -86,10 +87,10 @@ export class UsersService {
   }
 
   updateEmail(userId: string, userDto: UserDto) {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
       const { email } = userDto;
       try {
-        const user = this.prismaService.user.update({
+        const user = await this.prismaService.user.update({
           where: { id: userId },
           data: { email },
         });
@@ -114,7 +115,7 @@ export class UsersService {
 
         const hashedPassword = await this.authService.hashData(newPassword);
 
-        const updatedUser = this.prismaService.user.update({
+        const updatedUser = await this.prismaService.user.update({
           where: { id: userId },
           data: { hashedPassword },
         });
@@ -125,9 +126,14 @@ export class UsersService {
     });
   }
 
-  async uploadProfilePicture(userId: string, file: any) {
+  uploadProfilePicture(userId: string, file: any) {
     return new Promise(async (resolve, reject) => {
       try {
+        const user: any = await this.getUserById(userId);
+        if (user.profilePicUrl) {
+          await this.deleteProfilePicture(userId);
+        }
+
         const s3 = new S3({
           accessKeyId: process.env.AWS_ACCESS_KEY_ID,
           secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
@@ -144,6 +150,31 @@ export class UsersService {
         const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.amazonaws.com/${fileName}`;
 
         const updatedUser = await this.updateUser(userId, imageUrl);
+        resolve(updatedUser);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+
+  deleteProfilePicture(userId: string) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user: any = await this.getUserById(userId);
+        const s3 = new S3({
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        });
+
+        const fileName = user.profilePicUrl.split('/').pop();
+
+        console.log(fileName);
+        const deleteParams = {
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: fileName,
+        };
+        await s3.deleteObject(deleteParams).promise();
+        const updatedUser = await this.updateUser(userId, null);
         resolve(updatedUser);
       } catch (error) {
         reject(error);
@@ -197,7 +228,7 @@ export class UsersService {
   updateLastSeen(userId: string) {
     return new Promise(async (resolve, reject) => {
       try {
-        const user = this.prismaService.user.update({
+        const user = await this.prismaService.user.update({
           where: { id: userId },
           data: {
             lastSeen: new Date(),
