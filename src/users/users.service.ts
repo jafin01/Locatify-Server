@@ -287,8 +287,12 @@ export class UsersService {
           where: { createdUserId: userId },
         });
 
-        if (circles.length > 0) {
+        if (circles.length > 1) {
           throw new Error(userDeleteError);
+        } else {
+          await this.prismaService.circle.deleteMany({
+            where: { createdUserId: userId },
+          });
         }
 
         await this.prismaService.circleMembers.deleteMany({
